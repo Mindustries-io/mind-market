@@ -19,11 +19,11 @@ If this file doesn't exist, create it. If it exists, read it first to preserve e
 
 Ask the user (use AskUserQuestion for structured input):
 
-1. **Product name** — e.g., "ObligoBoard"
-2. **One-line pitch** — e.g., "Compliance automation SaaS for European SMEs"
-3. **Primary domain** — e.g., "obligoboard.com"
+1. **Product name** — e.g., "Aurora"
+2. **One-line pitch** — e.g., "Compliance-tracking SaaS for European SMEs"
+3. **Primary domain** — e.g., "aurora.example.com"
 4. **Stage** — pre-launch / early access / GA / scaling
-5. **Active repo** — GitHub `owner/repo` where the backlog lives (e.g., "GrewingM/ObligoBoard")
+5. **Active repo** — GitHub `owner/repo` where the backlog lives (e.g., "acme-studio/aurora")
 
 ### Step 2: Target Personas
 
@@ -57,7 +57,7 @@ Ask the user:
 
 Ask the user to list:
 
-1. **Direct competitors** — tools that solve the same job (e.g., OneTrust, Usercentrics, Cookiebot, Iubenda, TermSly, ComplyCube)
+1. **Direct competitors** — tools that solve the same job in the product's category
 2. **Adjacent competitors** — partial-overlap tools (e.g., general legal tech, privacy consulting platforms)
 3. **Status-quo alternative** — what prospects do without any tool (e.g., "Word templates + lawyer on retainer")
 
@@ -92,7 +92,7 @@ Ask the user:
 
 Ask the user which signals are available. For MVP, these are the realistic inputs:
 
-1. **Support email** — the inbox where user problems land (e.g., `CONTACT_EMAIL`). Manual log or IMAP integration.
+1. **Support email** — the inbox where user problems land (e.g., "support@aurora.example.com"). Manual log or IMAP integration.
 2. **Stripe cancellation reasons** — whether customers are asked for a reason at churn (yes/no). If yes, note how reasons are stored.
 3. **Competitor review sites** — URLs to scrape for complaints about competitors (a source of unmet needs):
    - G2 page URL for each competitor
@@ -115,7 +115,7 @@ Ask the user for weights (integers 1-5, higher = more weight) on:
 4. **Effort (inverse)** — smaller items score higher (cheaper wins sooner)
 5. **Revenue impact** — likely conversion, retention, or expansion impact
 
-These weights feed the lead-po's priority scoring formula (see `skills/lead-po/references/output-formats.md`).
+These weights feed the lead-po's priority scoring formula (see `references/config-schema.md`).
 
 ### Step 8: Cross-OS Integration
 

@@ -1,11 +1,21 @@
 # Marketing OS Tool Registry
 
-Complete catalog of available MCP tools organized by marketing domain. All tools are globally available — no additional configuration needed.
+Catalog of MCP tools organized by marketing domain. Tool names below are the short endpoint names exposed by **the Ahrefs MCP server** (unless another source is noted). **Discover the exact tool names at runtime** (ToolSearch or the tool list) — the fully-qualified prefix depends on how the server is connected; never hardcode server UUIDs or tool IDs.
+
+## Integration availability & fallbacks
+
+All integrations are optional — check the `integrations` flags in config and actual tool availability:
+
+| Server | Config flag | Fallback when unavailable |
+|---|---|---|
+| Ahrefs MCP server | `integrations.ahrefs` | WebSearch + user-provided data; prefix output with a "Degraded insights" note |
+| claude-mem (memory) | `integrations.claude_mem` | Skip memory steps silently |
+| nano-banana (images) | `integrations.nano_banana` | Deliver the image prompt instead of a generated image |
 
 ## IMPORTANT: Ahrefs API Rules
 
 1. **Always use `mode=subdomains`** when analyzing a domain name. Using `mode=domain` excludes www and other subdomains.
-2. **Always check the `doc` tool first** for the real input schema before calling complex tools: `mcp__73e19d61-74ed-4b6a-b8c2-34ead670bb6c__doc({ tool: "tool-name" })`
+2. **Always check the server's `doc` tool first** for the real input schema before calling complex tools: `doc({ tool: "tool-name" })`
 3. **Date format:** YYYY-MM-DD (e.g., "2026-04-04")
 4. **Country codes:** 2-letter lowercase (e.g., "us", "gb", "it")
 

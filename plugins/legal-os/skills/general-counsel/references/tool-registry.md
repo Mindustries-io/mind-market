@@ -1,126 +1,66 @@
 # Legal OS Tool Registry
 
-Complete catalog of tools available to Legal OS agents, organized by function.
+Catalog of tools available to Legal OS, organized by function. For MCP servers, discover
+the exact tool names at runtime (ToolSearch or the tool list); if a server is not
+connected, use the listed fallback — never fail hard on a missing integration.
 
-## Core Tools (All Agents)
+## Orchestration
 
-### Memory & Context
 | Tool | Purpose |
 |---|---|
-| `claude-mem: search` | Search cross-session memory for legal context (use `los:` prefix) |
-| `claude-mem: get_observations` | Fetch full details of specific memory entries |
-| `claude-mem: timeline` | Get context around memory entries |
+| `Agent` (subagent_type: `legal-os:<agent>`) | Delegate to specialist agents: `compliance-officer`, `dpo`, `contract-manager`, `legal-researcher`, `regulatory-intel`, `incident-response`, `vendor-risk` |
 
-### File Operations
-| Tool | Purpose |
-|---|---|
-| `Read` | Read config files, data files, user-provided documents |
-| `Write` | Write/update data files (config, registries, logs) |
-| `Glob` | Find files by pattern |
-| `Grep` | Search file contents |
+## Core tools (all agents)
 
-### Research
-| Tool | Purpose |
-|---|---|
-| `WebSearch` | Search the web for regulatory news, legal guidance, enforcement actions |
-| `WebFetch` | Fetch and analyze specific web pages |
-| `Apify: rag-web-browser` | Scrape web content for legal research |
-
----
-
-## Built-in Legal Skills (via Skill tool)
-
-These Anthropic marketplace skills serve as composable primitives. Invoke via `Skill("legal:skill-name", args)`.
-
-| Skill | Primary Agent | Purpose |
+| Tool | Purpose | Fallback |
 |---|---|---|
-| `legal:review-contract` | Contract Manager | Clause-by-clause contract analysis with redlines |
-| `legal:triage-nda` | Contract Manager | GREEN/YELLOW/RED NDA classification |
-| `legal:signature-request` | Contract Manager | Pre-signature checklist and routing |
-| `legal:compliance-check` | Compliance Officer | Regulatory compliance assessment for actions/features |
-| `legal:legal-risk-assessment` | General Counsel | Standalone risk scoring with severity classification |
-| `legal:vendor-check` | Vendor Risk | Vendor agreement status across systems |
+| `Read` / `Write` / `Glob` / `Grep` | Config, data files, user documents | — |
+| `WebSearch` | Regulatory news, guidance, enforcement, vendor research | Ask the user to paste sources |
+| `WebFetch` | Fetch and analyze specific pages (EUR-Lex, EDPB, DPA sites) | `WebSearch` summaries |
+
+## Optional MCP integrations
+
+| Integration | Used by | Purpose | Fallback |
+|---|---|---|---|
+| Memory server (e.g. claude-mem) | All | Cross-session legal memory under the `los:` prefix | Proceed without memory |
+| Web-scraping server (e.g. an Apify-style RAG web browser) | legal-researcher, regulatory-intel | Deep extraction from legal databases and DPA portals | `WebSearch` + `WebFetch` |
+| Scheduled-tasks server | incident-response, GC | Deadline tracking (e.g. 72-hour notification) | Manual reminders noted in output |
+
+## Built-in legal skills (optional, via Skill tool)
+
+If Anthropic's `legal:*` marketplace skills are installed, agents may invoke them; if
+not, each agent covers the task natively.
+
+| Skill | Primary agent | Purpose |
+|---|---|---|
+| `legal:review-contract` | contract-manager | Clause-by-clause contract analysis |
+| `legal:triage-nda` | contract-manager | GREEN/YELLOW/RED NDA classification |
+| `legal:signature-request` | contract-manager | Pre-signature checklist |
+| `legal:compliance-check` | compliance-officer | Compliance screening of actions/features |
+| `legal:legal-risk-assessment` | General Counsel | Standalone risk scoring |
+| `legal:vendor-check` | vendor-risk | Vendor agreement status |
 | `legal:meeting-briefing` | General Counsel | Meeting prep with legal context |
-| `legal:brief` | General Counsel | Legal briefings (daily, topic, incident) |
-| `legal:legal-response` | Legal Researcher | Templated responses (DSAR, litigation hold, vendor) |
+| `legal:brief` | General Counsel | Legal briefings |
+| `legal:legal-response` | legal-researcher | Templated responses (DSAR, litigation hold, vendor) |
 
----
+## Data files
 
-## Agent-Specific Tools
+All under `~/.claude/plugins/data/legal-os/` (created on demand):
 
-### Compliance Officer
-| Tool | Purpose |
-|---|---|
-| Read `compliance-snapshot.json` | ObligoBoard cached compliance data |
-| Read `regulatory-calendar.json` | Upcoming compliance deadlines |
-| `legal:compliance-check` | Assess compliance of proposed actions |
-
-### DPO
-| Tool | Purpose |
-|---|---|
-| Read `compliance-snapshot.json` | GDPR-filtered obligation data |
-| `WebSearch` | EDPB guidance, DPA decisions, regulatory updates |
-| `Apify: rag-web-browser` | Scrape EDPB, national DPA, and EUR-Lex content |
-
-### Contract Manager
-| Tool | Purpose |
-|---|---|
-| Read user-provided documents | Contract files for review |
-| Read/Write `contracts/index.json` | Contract repository tracking |
-| `legal:review-contract` | Detailed contract analysis |
-| `legal:triage-nda` | NDA risk classification |
-| `legal:signature-request` | Signature preparation |
-
-### Legal Researcher
-| Tool | Purpose |
-|---|---|
-| `WebSearch` | Legal research, case law, regulatory guidance |
-| `Apify: rag-web-browser` | Extract content from legal databases, EUR-Lex |
-| `legal:legal-response` | Generate templated legal responses |
-
-### Regulatory Intelligence
-| Tool | Purpose |
-|---|---|
-| `WebSearch` | Scan for regulatory news, enforcement actions |
-| `Apify: rag-web-browser` | Scrape EDPB, national DPAs, EUR-Lex, EIOPA |
-| Read/Write `regulatory-calendar.json` | Update compliance deadlines |
-
-### Incident Response Manager
-| Tool | Purpose |
-|---|---|
-| Read/Write `incident-log.json` | Incident tracking and documentation |
-| `mcp__scheduled-tasks` | Create deadline-tracking tasks (72-hour notification) |
-| `WebSearch` | DPA notification portal lookup |
-
-### Vendor Risk Assessor
-| Tool | Purpose |
-|---|---|
-| Read/Write `vendor-registry.json` | Vendor tracking and compliance status |
-| `WebSearch` | Vendor reputation research, security posture |
-| `legal:vendor-check` | Vendor agreement status check |
-
----
-
-## Data File Locations
-
-All data files are at `~/.claude/plugins/data/legal-os/`:
-
-| File | Read/Write | Used By |
+| File | Read/Write | Used by |
 |---|---|---|
 | `config.json` | Read (all), Write (setup) | All agents |
-| `compliance-snapshot.json` | Read | Compliance Officer, DPO |
-| `contracts/index.json` | Read/Write | Contract Manager |
-| `regulatory-calendar.json` | Read/Write | Regulatory Intel, Compliance Officer |
-| `incident-log.json` | Read/Write | Incident Response |
-| `vendor-registry.json` | Read/Write | Vendor Risk |
+| `compliance-snapshot.json` | Read | compliance-officer, dpo — see `${CLAUDE_PLUGIN_ROOT}/references/compliance-data-sources.md` |
+| `contracts/index.json` | Read/Write | contract-manager |
+| `regulatory-calendar.json` | Read/Write | regulatory-intel, compliance-officer |
+| `incident-log.json` | Read/Write | incident-response |
+| `vendor-registry.json` | Read/Write | vendor-risk |
 | `matters/{id}.json` | Read/Write | General Counsel, any specialist |
 
----
+## Notes
 
-## Important Notes
-
-1. **Always read config.json first** — every agent needs org context before acting
-2. **Use `los:` prefix for all claude-mem entries** — keeps legal memory distinct from other systems
-3. **Check snapshot freshness** — if `compliance-snapshot.json` is older than 7 days, warn the user
-4. **Include disclaimer** — all outputs should note "AI-assisted guidance, not legal advice"
-5. **Respect escalation threshold** — if risk exceeds the org's configured threshold, flag for human review
+1. Every agent follows `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` first.
+2. Memory entries use the `los:` prefix.
+3. Snapshot older than 7 days → warn the user (see compliance-data-sources.md).
+4. Risk above the org's `ESCALATION` threshold → flag for human review.
+5. Disclaimers: link to `${CLAUDE_PLUGIN_ROOT}/SAFETY.md` — do not restate per output.

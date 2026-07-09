@@ -1,9 +1,11 @@
 {
   "name": "marketing-os",
   "description": "Full-stack Marketing Operating System with CMO orchestrator and specialist agents for SEO, content, competitive intel, email, social, analytics, and brand management.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
-    "name": "Mirko"
+    "name": "Mindustries",
+    "url": "https://github.com/Mindustries-io"
   },
+  "homepage": "https://github.com/Mindustries-io/mind-market",
   "license": "MIT"
 }

@@ -25,6 +25,7 @@
 | `channels` | object | no | - | Active marketing channels (see below) |
 | `brand_voice` | object | no | - | Brand voice configuration (see below) |
 | `reporting` | object | no | - | Reporting preferences (see below) |
+| `integrations` | object | no | - | Optional integration flags (see below) |
 | `created_at` | string | no | - | ISO date of profile creation |
 | `updated_at` | string | no | - | ISO date of last update |
 
@@ -58,6 +59,16 @@
 | `report_day` | string | "monday" |
 | `default_date_range` | string | "30d" |
 | `comparison` | string | "previous_period" |
+
+### Integrations Object
+
+All integrations are optional; agents also probe actual tool availability at runtime and fall back gracefully (see `references/startup-protocol.md` at the plugin root).
+
+| Field | Type | Default | When false |
+|---|---|---|---|
+| `ahrefs` | boolean | false | Agents use WebSearch + user-provided data with a "degraded insights" note |
+| `claude_mem` | boolean | false | Cross-session memory steps are skipped silently |
+| `nano_banana` | boolean | false | Agents deliver image prompts instead of generated images |
 
 ## Ahrefs Country Codes (Common)
 

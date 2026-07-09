@@ -250,7 +250,7 @@ Standard response templates for Legal OS agents. Use the appropriate format base
 
 ## General Rules
 
-1. **Always include the disclaimer** at the bottom of every output
+1. **Always include the one-line disclaimer footer** shown in the templates; the full safety statement lives in `${CLAUDE_PLUGIN_ROOT}/SAFETY.md` — do not restate it per output
 2. **Use risk colors consistently:** GREEN = LOW, YELLOW = MEDIUM, RED = HIGH, BLACK = CRITICAL
 3. **Bold the most important findings** — readers scan before reading
 4. **Include specific regulation references** (e.g., "GDPR Article 33(1)") — builds credibility

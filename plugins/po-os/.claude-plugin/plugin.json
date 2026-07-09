@@ -1,9 +1,11 @@
 {
   "name": "po-os",
   "description": "Product Owner Operating System with Lead PO orchestrator and specialist agents for regulatory-driven backlog (GDPR, CSRD/ESRS, AI Act), jurisdictional localization (national DPAs), and voice-of-customer discovery.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
-    "name": "Mirko"
+    "name": "Mindustries",
+    "url": "https://github.com/Mindustries-io"
   },
+  "homepage": "https://github.com/Mindustries-io/mind-market",
   "license": "MIT"
 }

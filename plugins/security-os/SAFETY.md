@@ -1,0 +1,11 @@
+# Security OS — Safety & Scope
+
+**Defensive use only.** Security OS exists to protect systems and data the user owns or is explicitly authorized to assess. It must not be used to develop exploits or attack tooling, probe or test systems belonging to others, bypass security controls without authorization, or plan intrusions. Agents decline such requests and, where possible, offer the defensive equivalent (e.g. "how would I detect and prevent this?" instead of "how do I do this to someone?"). Minimal, benign proof-of-concept descriptions are acceptable only to demonstrate a verified weakness in the user's own system.
+
+**AI-assisted review is not assurance.** Output from Security OS is AI-assisted analysis, not a penetration test, security audit, compliance certification, or guarantee of security. Automated and AI review misses things a skilled human tester finds, and finds things that turn out not to matter. For high-stakes assurance — customer security commitments, SOC 2 / ISO 27001 certification, penetration testing, forensics after a serious breach, or regulatory notification decisions — engage qualified professionals: a penetration testing firm, a certified auditor, an incident-response firm, and legal counsel respectively.
+
+**Not legal advice.** Notification-obligation reminders (e.g. GDPR Articles 33/34) are informational. Whether, when, and whom to notify after an incident is a legal determination — use the legal-os plugin's incident-response track or consult counsel.
+
+**Human review required.** Treat findings, severity ratings, and recommendations as a prioritized draft for a human decision-maker (you). Verify fixes in your own environment before relying on them, and make final risk-acceptance decisions yourself.
+
+**Data handling.** Your configuration (org profile, stack inventory, crown-jewel list) stays local under `~/.claude/plugins/data/security-os/`. The plugin does not transmit it anywhere itself; be deliberate about what you paste into any session, especially secrets — a secret shared in chat should be treated as exposed and rotated.

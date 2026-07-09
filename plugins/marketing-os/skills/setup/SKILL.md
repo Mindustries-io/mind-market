@@ -19,13 +19,21 @@ If this file doesn't exist, create it. If it exists, read it first to preserve e
 
 Ask the user (use AskUserQuestion for structured input):
 
-1. **Brand name** - The brand being marketed (e.g., "Acme Corp")
-2. **Primary domain** - The website domain (e.g., "acme.com")
+1. **Brand name** - The brand being marketed (e.g., "Aurora")
+2. **Primary domain** - The website domain (e.g., "aurora.example.com")
 3. **Protocol** - http or https (default: https)
 
-### Step 2: Auto-Discovery
+### Step 2: Integrations
 
-Run these in parallel to save time:
+Ask which optional integrations are connected (use AskUserQuestion). Store the answers as booleans under `integrations`:
+
+1. **Ahrefs MCP server connected?** -> `integrations.ahrefs`. If yes, live SEO/analytics/Brand Radar data is used. If no, agents fall back to WebSearch + user-provided data and mark outputs as "degraded insights". You can also probe availability at runtime: discover Ahrefs tools by name via ToolSearch or the tool list — never assume hardcoded tool IDs.
+2. **claude-mem (memory MCP) available?** -> `integrations.claude_mem`. If no, cross-session memory is skipped silently.
+3. **nano-banana (image MCP) available?** -> `integrations.nano_banana`. If no, agents deliver image prompts instead of generated images.
+
+### Step 3: Auto-Discovery (only if `integrations.ahrefs` is true)
+
+If Ahrefs is not connected, skip this step and ask the user to list competitors manually. Otherwise run these in parallel (discover exact tool names at runtime):
 
 1. **Detect Ahrefs projects** - Call `management-projects` to find any existing projects matching the domain. If found, store the `project_id` for Rank Tracker and Site Audit integration.
 
@@ -42,13 +50,13 @@ Run these in parallel to save time:
 
 Present the discovered competitors to the user. Let them confirm, add, or remove entries.
 
-### Step 3: Target Markets
+### Step 4: Target Markets
 
 Ask the user:
 1. **Target countries** - List of country codes (default: ["us"]). Use Ahrefs 2-letter codes.
 2. **Primary language** - For content generation (default: "en")
 
-### Step 4: Active Channels
+### Step 5: Active Channels
 
 Ask which channels are active (use AskUserQuestion with multiSelect):
 - Blog / Content marketing
@@ -57,7 +65,7 @@ Ask which channels are active (use AskUserQuestion with multiSelect):
 - Paid search (Google Ads, Bing Ads)
 - Paid social
 
-### Step 5: Brand Voice
+### Step 6: Brand Voice
 
 Ask the user to describe their brand voice. Offer structured options:
 - **Tone**: Professional, Casual, Technical, Friendly, Authoritative, Playful
@@ -65,14 +73,14 @@ Ask the user to describe their brand voice. Offer structured options:
 - **Words to avoid**: Any terms or phrases that are off-brand
 - **Style notes**: Any specific style preferences (e.g., "Oxford comma", "no jargon")
 
-### Step 6: Reporting Preferences
+### Step 7: Reporting Preferences
 
 Ask:
 - **Report day**: Which day for weekly reports (default: Monday)
 - **Default date range**: For analytics queries (default: "last 30 days")
 - **Comparison period**: previous period or year-over-year
 
-### Step 7: Write Configuration
+### Step 8: Write Configuration
 
 Create the directory if needed:
 ```bash
@@ -120,6 +128,11 @@ Write `config.json` with this structure:
         "default_date_range": "30d",
         "comparison": "previous_period"
       },
+      "integrations": {
+        "ahrefs": true,
+        "claude_mem": false,
+        "nano_banana": false
+      },
       "created_at": "2026-04-04",
       "updated_at": "2026-04-04"
     }
@@ -127,7 +140,7 @@ Write `config.json` with this structure:
 }
 ```
 
-### Step 8: Confirmation
+### Step 9: Confirmation
 
 Display a summary of the configured profile in a clean table format. Tell the user:
 - They can run `/marketing-os:setup` again to modify settings or add another brand
@@ -143,4 +156,4 @@ If the user already has profiles:
 
 ## Quick Edits
 
-If the user provides a specific argument (e.g., "add competitor acme.com"), skip the full wizard and make the targeted change to the active profile.
+If the user provides a specific argument (e.g., "add competitor example.com" or "ahrefs is now connected"), skip the full wizard and make the targeted change to the active profile (integration flags live under `integrations`).

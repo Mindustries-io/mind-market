@@ -1,0 +1,11 @@
+{
+  "name": "security-os",
+  "description": "Security Operating System with CISO orchestrator and specialist agents for application security review, threat modeling, security hardening, vendor security due diligence, and incident response. Defensive security for solopreneurs and one-person software businesses.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Mindustries",
+    "url": "https://github.com/Mindustries-io"
+  },
+  "homepage": "https://github.com/Mindustries-io/mind-market",
+  "license": "MIT"
+}

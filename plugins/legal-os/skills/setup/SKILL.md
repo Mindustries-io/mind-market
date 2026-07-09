@@ -55,18 +55,23 @@ Ask the user:
    - Country
    - Notification URL (for breach reporting)
 
-### Step 4: ObligoBoard Integration
+### Step 4: Compliance Tracker Integration (optional)
 
 Ask the user:
 
-1. **ObligoBoard base URL** — if they use ObligoBoard (e.g., "https://obligoboard.com")
-2. **API available** — yes/no (Phase 1: typically no, using manual snapshot sync)
-3. **Manual sync** — if API not available, explain the snapshot sync process
+1. **Do you use a compliance-tracking tool?** — any tool works (e.g., the fictional
+   Aurora by Acme Studio, or a spreadsheet-based tracker). This is entirely optional.
+2. **Tool name** — recorded for context only.
 
-If ObligoBoard is used, explain:
-- The Compliance Officer and DPO agents can read a cached snapshot of their compliance data
-- They should periodically export their dashboard data to `~/.claude/plugins/data/legal-os/compliance-snapshot.json`
-- Future versions will support direct API integration
+If they use a tracker, explain:
+- The Compliance Officer and DPO agents read a JSON/CSV snapshot the user exports from
+  the tool and saves to `~/.claude/plugins/data/legal-os/compliance-snapshot.json`
+- The expected structure is documented in
+  `${CLAUDE_PLUGIN_ROOT}/references/compliance-data-sources.md`
+- The snapshot should be refreshed periodically (agents warn when it is >7 days old)
+
+If they don't use a tracker, explain **lite mode**: agents work from user-pasted status
+data and give qualitative assessments instead of precise scores.
 
 ### Step 5: Contract & Legal Defaults
 

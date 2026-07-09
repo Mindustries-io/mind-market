@@ -24,7 +24,7 @@
 | `active_frameworks` | string[] | yes | ["gdpr"] | Compliance frameworks in scope |
 | `dpo` | object | no | - | DPO configuration (see below) |
 | `supervisory_authority` | object | no | - | Primary DPA (see below) |
-| `obligoboard` | object | no | - | ObligoBoard integration (see below) |
+| `compliance_tracker` | object | no | - | Compliance tracker integration (see below) |
 | `contract_defaults` | object | no | - | Contract negotiation playbook (see below) |
 | `risk_appetite` | object | no | - | Risk thresholds (see below) |
 | `reporting` | object | no | - | Reporting preferences (see below) |
@@ -51,14 +51,15 @@
 | `notification_url` | string | "" | Breach notification portal URL |
 | `general_contact` | string | "" | General contact URL or email |
 
-### ObligoBoard Integration Object
+### Compliance Tracker Integration Object
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `base_url` | string | "" | ObligoBoard instance URL |
-| `api_available` | boolean | false | Whether API token auth is available |
-| `api_key` | string | "" | API key (Phase 2, when available) |
-| `manual_sync` | boolean | true | Using snapshot-based sync |
+| `tool_name` | string | "" | Name of the compliance-tracking tool, if any (e.g., "Aurora") |
+| `snapshot_sync` | boolean | false | Whether the user exports snapshots to `compliance-snapshot.json` |
+
+If no tracker is configured, agents run in **lite mode** (user-pasted data, qualitative
+assessments). See `${CLAUDE_PLUGIN_ROOT}/references/compliance-data-sources.md`.
 
 ### Contract Defaults Object
 

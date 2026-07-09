@@ -1,8 +1,8 @@
 # Lead PO Routing Table
 
-Complete mapping of user intents to PO-OS specialists.
+Complete mapping of user intents to PO-OS specialists. Delegate via the Agent tool with the scoped agent name (`subagent_type: "po-os:<agent>"`). **FAST MODE applies:** single-domain intent → one agent, relay its output.
 
-## Route: `regulatory-po`
+## Route: `po-os:regulatory-po`
 
 **Triggers:** regulation, regulatory, GDPR, CSRD, ESRS, AI Act, NIS2, DORA, ePrivacy, Data Act, new law, EDPB, compliance feature, compliance requirement, "what does {regulation} require", deadline, obligation, horizon scan, regulatory change, new guidance, article, recital
 
@@ -15,9 +15,9 @@ Complete mapping of user intents to PO-OS specialists.
 - "New NIS2 requirements for our target sector?"
 - "Do we need to add a DPIA wizard? What regulations drive it?"
 
-**Secondary:** `localization-po` (when a regulation has jurisdictional variation)
+**Secondary:** `po-os:localization-po` (when a regulation has jurisdictional variation)
 
-## Route: `localization-po`
+## Route: `po-os:localization-po`
 
 **Triggers:** localization, Italy, Italian, Garante, France, French, CNIL, UK, British, ICO, Germany, German, BfDI, Spain, Spanish, AEPD, Netherlands, Dutch, AP, country-specific, national, jurisdiction, local law, translation, language, locale, regional, member state, non-EU, Swiss, UK GDPR, Turkish KVKK, cookie law by country, localised
 
@@ -30,9 +30,9 @@ Complete mapping of user intents to PO-OS specialists.
 - "Italian-language requirements for privacy policy — what features cover it?"
 - "UK post-Brexit divergence — any backlog items?"
 
-**Secondary:** `regulatory-po` (when the jurisdiction implements an EU framework)
+**Secondary:** `po-os:regulatory-po` (when the jurisdiction implements an EU framework)
 
-## Route: `discovery-voc`
+## Route: `po-os:discovery-voc`
 
 **Triggers:** customer, customers, user, users, feedback, support, tickets, complaint, complaints, pain, pain point, churn, cancellation, cancel, retention, interview, prospect, review, reviews, G2, Capterra, Trustpilot, Reddit, forum, community, onboarding, drop-off, funnel, NPS, CSAT, voice of customer, VoC, survey, signal, signals, insight, insights, want, need, wish
 
@@ -40,7 +40,7 @@ Complete mapping of user intents to PO-OS specialists.
 - "What are users complaining about this week?"
 - "Synthesize the last 30 days of support emails"
 - "Why are people cancelling?"
-- "What do G2 reviews of Iubenda say we should build?"
+- "What do G2 reviews of {competitor} say we should build?"
 - "Mine r/gdpr for unmet needs"
 - "Top pain patterns across all VoC sources"
 - "Do we have signal for a <feature> ask?"
@@ -77,7 +77,7 @@ Users can invoke specialists directly for focused queries:
 - `/po-os:localization-po` — e.g., "Garante enforcement priorities 2026"
 - `/po-os:discovery-voc` — e.g., "Synthesize this week's support emails"
 
-Direct invocation skips routing logic but still uses the full Startup Protocol (config load + memory).
+These thin trigger skills delegate straight to the matching agent, which runs the shared startup protocol itself (config load + memory).
 
 ## Keywords That Go To Lead PO (default)
 

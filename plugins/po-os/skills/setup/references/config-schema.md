@@ -112,14 +112,14 @@ P3: score <  0.40 * max_score
 
 ```json
 {
-  "active_profile": "obligoboard",
+  "active_profile": "aurora",
   "profiles": {
-    "obligoboard": {
-      "product_name": "ObligoBoard",
-      "pitch": "Compliance automation SaaS for European SMEs",
-      "domain": "obligoboard.com",
+    "aurora": {
+      "product_name": "Aurora",
+      "pitch": "Compliance-tracking SaaS for European SMEs by Acme Studio",
+      "domain": "aurora.example.com",
       "stage": "early-access",
-      "repo": "GrewingM/ObligoBoard",
+      "repo": "acme-studio/aurora",
       "personas": [
         {
           "name": "Italian SME Founder",
@@ -129,7 +129,7 @@ P3: score <  0.40 * max_score
             "Privacy policy drafting without a lawyer",
             "Fear of Garante fines"
           ],
-          "alternatives": ["Word templates", "Iubenda", "Lawyer on retainer"],
+          "alternatives": ["Word templates", "Consent-widget tools", "Lawyer on retainer"],
           "buying_trigger": "Received first customer data request or Garante letter"
         }
       ],
@@ -141,11 +141,11 @@ P3: score <  0.40 * max_score
       "local_frameworks": ["uk_gdpr"],
       "competitors": [
         {
-          "name": "Iubenda",
+          "name": "ExampleConsent",
           "type": "direct",
-          "url": "https://www.iubenda.com",
+          "url": "https://exampleconsent.example.com",
           "review_pages": {
-            "g2": "https://www.g2.com/products/iubenda/reviews",
+            "g2": "https://www.g2.com/products/exampleconsent/reviews",
             "capterra": "",
             "trustpilot": ""
           },
@@ -155,7 +155,7 @@ P3: score <  0.40 * max_score
       "status_quo_alternative": "Word templates + lawyer on retainer",
       "backlog": {
         "location": "github",
-        "repo": "GrewingM/ObligoBoard",
+        "repo": "acme-studio/aurora",
         "default_labels": {
           "category": {
             "regulatory": "po:regulatory",
@@ -183,7 +183,7 @@ P3: score <  0.40 * max_score
         "No unresolved open questions"
       ],
       "voc_sources": {
-        "support_email": {"enabled": true, "address": "contact@obligoboard.com", "log_path": ""},
+        "support_email": {"enabled": true, "address": "support@aurora.example.com", "log_path": ""},
         "stripe_churn": {"enabled": false, "collection_method": ""},
         "competitor_reviews": {"enabled": true, "sites": []},
         "forums": {"enabled": true, "subs": ["r/gdpr", "r/privacy"]},

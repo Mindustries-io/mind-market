@@ -1,9 +1,11 @@
 {
   "name": "legal-os",
   "description": "Legal Operating System with General Counsel orchestrator and specialist agents for compliance, data protection, contracts, regulatory intelligence, incident response, vendor risk, and legal research.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
-    "name": "Mirko"
+    "name": "Mindustries",
+    "url": "https://github.com/Mindustries-io"
   },
+  "homepage": "https://github.com/Mindustries-io/mind-market",
   "license": "MIT"
 }

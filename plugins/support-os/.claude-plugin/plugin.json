@@ -1,0 +1,11 @@
+{
+  "name": "support-os",
+  "description": "Customer Support Operating System with Support Lead orchestrator and specialist agents for ticket triage, brand-voice response drafting, knowledge-base authoring, and support-trend insights — a virtual Support Lead for one-person product businesses.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Mindustries",
+    "url": "https://github.com/Mindustries-io"
+  },
+  "homepage": "https://github.com/Mindustries-io/mind-market",
+  "license": "MIT"
+}

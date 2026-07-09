@@ -59,7 +59,7 @@ As a **{persona name}**, I want **{capability}**, so that **{outcome/benefit}**.
 
 ### How the Lead PO transforms this
 
-1. **Score** using `prioritization_weights` from config (see `setup/references/config-schema.md` for the formula)
+1. **Score** using `prioritization_weights` from config (see `${CLAUDE_PLUGIN_ROOT}/skills/setup/references/config-schema.md` for the formula)
 2. **Override** the specialist's proposed priority if the score disagrees (with a note)
 3. **Check DoR** — any unchecked criterion → `needs-clarification` label
 4. **Deduplicate** against existing backlog + memory
