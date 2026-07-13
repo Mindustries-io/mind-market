@@ -59,7 +59,7 @@ Cost shape: a typical "handle my inbox" session is one cheap haiku pass over the
 
 | Integration | Used for | Fallback if missing |
 |---|---|---|
-| Helpdesk tool (Zendesk, Help Scout, Freshdesk, Intercom, …) | Interpreting **local CSV exports** only — support-os never connects to helpdesk APIs or asks for credentials | Paste ticket text directly |
+| Helpdesk tool (Zendesk, Help Scout, Freshdesk, Intercom, …) | **Local CSV exports** by default; read-only pulls via an MCP connector already in your session when `connectors.enabled` is true — never credentials or API keys | Paste ticket text directly |
 | marketing-os plugin | Reusing your configured brand voice for replies and articles | `voice` section of support-os config; else a friendly-professional default |
 | po-os plugin | `insights-analyst` emits findings as Discovery Insights that po-os `discovery-voc` consumes for backlog synthesis | Same findings presented directly to you, labeled as product signal |
 | Memory tool (e.g. claude-mem MCP) | Canned-response library, KB inventory, trend history under the `sup:` prefix | Everything still works per-session; durable libraries are re-seeded from your files |

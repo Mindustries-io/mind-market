@@ -44,7 +44,7 @@ Support-OS uses the `sup:` prefix. If a memory search tool (e.g. claude-mem MCP)
 
 ## 4. External Tools and Fallbacks
 
-Support-OS never asks for helpdesk credentials or connects to live helpdesk APIs. Inputs are always local:
+Support-OS never asks for helpdesk credentials or API keys. Pasted text and CSV exports are the default inputs; the one exception is a read-only pull from a helpdesk/CRM MCP connector already present in the session, offered only when `connectors.enabled` is true (see the connector-aware agents):
 
 | Input | Primary | Fallback |
 |---|---|---|

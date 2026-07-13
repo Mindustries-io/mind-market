@@ -1,7 +1,7 @@
 # Marketing OS Configuration Schema
 
 ## File Location
-`~/.claude/plugins/data/marketing-os/config.json` — this is the *example default location* (location 3 of the resolution order); the actual `<DATA_DIR>` is resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`.
+`<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). The example default location — location 3 of the resolution order — is `~/.claude/plugins/data/marketing-os/config.json`.
 
 ## Schema
 

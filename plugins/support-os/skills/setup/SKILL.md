@@ -19,7 +19,7 @@ Read `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory se
 
 1. **Product** — product name, one-line pitch, domain. (Example placeholders: "Aurora", "compliance tracking for small teams", "aurora.example.com".)
 2. **Channels** — where support arrives: email, in-app chat, social/X, community, other. Multiple allowed.
-3. **Helpdesk tool** — which tool, if any (Zendesk, Help Scout, Freshdesk, Intercom, plain inbox, none). Explain: used only to interpret CSV exports — support-os never connects to it or asks for credentials.
+3. **Helpdesk tool** — which tool, if any (Zendesk, Help Scout, Freshdesk, Intercom, plain inbox, none). Explain: used to interpret CSV exports, or for read-only pulls when the tool's MCP connector is present in the session and `connectors.enabled` is true — support-os never asks for credentials or API keys.
 4. **Tone / voice** — 2-3 adjectives or a sentence ("friendly, direct, no corporate filler"), preferred signoff, and whether to reuse the marketing-os brand voice if that plugin is installed.
 5. **SLA expectations** — target first-response time (hours) and target resolution time; business days only?
 6. **Refund policy summary** — 1-3 sentences of the actual policy, the refund window (days), and the amount/conditions above which the user personally decides.

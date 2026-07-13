@@ -1,10 +1,9 @@
 # Legal OS Configuration Schema
 
 ## File Location
-`~/.claude/plugins/data/legal-os/config.json` — this is the example default location
-(location 3 of the resolution order); the actual path is `<DATA_DIR>/config.json`,
-resolved per the Data directory section of
-`${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`.
+`<DATA_DIR>/config.json`, resolved per the Data directory section of
+`${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`. The example default location —
+location 3 of the resolution order — is `~/.claude/plugins/data/legal-os/config.json`.
 
 ## Schema
 
