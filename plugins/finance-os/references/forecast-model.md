@@ -60,4 +60,4 @@ Follow with: runway statement, low-water mark, top 3 drivers, assumptions list (
 
 ## Data Persistence
 
-Persist model assumptions to `~/.claude/plugins/data/finance-os/forecast.json` (recurring items, weights, buffer) so the next run only needs the new opening balance and changes. Show the user what changed since last run.
+Persist model assumptions to `<DATA_DIR>/forecast.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`) — recurring items, weights, buffer — so the next run only needs the new opening balance and changes. Show the user what changed since last run.

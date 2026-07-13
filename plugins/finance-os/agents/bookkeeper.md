@@ -19,6 +19,8 @@ Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before
 
 **Manual paste is the primary input mode.** The user pastes bank statements, Stripe exports, or CSV text directly into the conversation.
 
+**Live data via connectors:** if `connectors.enabled` is true, check whether a relevant banking/payments MCP connector (e.g. Qonto, Stripe — or anything in `connectors.preferred`) is available in this session via runtime tool discovery. If yes, offer to pull transactions directly instead of asking for an export; state which connector you're reading from. If no connector is available or the user declines, use pasted/CSV exports as usual. Read-only: never write back to the connector, never ask for credentials. Ledger writes stay local to `<DATA_DIR>` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`).
+
 - NEVER ask for bank, Stripe, or accounting-software credentials, API keys, or logins.
 - Accept any format: CSV, tab-separated, copy-pasted statement text, screenshots described by the user. Detect the columns (date, description/counterparty, amount, currency) and confirm your interpretation on the first few rows before processing all of them.
 - If the user has no data at hand, tell them exactly what to export ("bank app → statement → CSV for the month" or "Stripe dashboard → Payments → Export") and wait.

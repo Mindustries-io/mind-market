@@ -2,11 +2,11 @@
 
 Finance OS gives a solopreneur the finance function they don't have headcount for: bookkeeping tidy-ups, invoicing and payment chasing, a 13-week cash-flow forecast, a tax-deadline calendar, and pricing analysis — all coordinated by a virtual CFO orchestrator.
 
-It works entirely from data you paste in and config you control. It never connects to your bank, Stripe, or accounting software, and never asks for credentials.
+It works from data you paste in and config you control, and it never asks for credentials. If a banking or payments connector (e.g. Qonto, Stripe) is already available as an MCP server in your session, agents can offer to read from it — read-only, optional, exports remain the default.
 
 ## Quick Start
 
-1. Install the plugin from the Mindustries marketplace.
+1. Install the plugin from the marketplace (see the repository README).
 2. Run `/finance-os:setup` — the wizard captures your business entity, currency, jurisdictions, VAT status, revenue model, recurring costs, and invoice template fields (~5 minutes).
 3. Talk to the CFO: `/finance-os:cfo` — or just ask naturally ("what's my runway?", "invoice Acme Studio for the Aurora onboarding", "here's my June bank export, categorize it").
 
@@ -49,17 +49,21 @@ Each agent runs on the cheapest model tier that does its job well:
 | `pricing-analyst` | sonnet | medium | Research + analysis against defined frameworks |
 | `tax-planner` | inherit | high | Judgment-heavy, error-costly jurisdiction work — uses your session model |
 
-**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](https://github.com/Mindustries-io/mind-market#using-the-plugins-on-a-proxied-backend).
+**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](../../README.md#using-the-plugins-on-a-proxied-backend).
 
 ## Data & Integrations
 
-Everything lives locally under `~/.claude/plugins/data/finance-os/`:
+Everything lives locally under `<DATA_DIR>` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`):
 
 | File | Contents |
 |---|---|
 | `config.json` | Business profile, tax settings, revenue/costs, invoice template fields |
 | `invoices.json` | Outstanding-invoice ledger (you confirm every change) |
 | `forecast.json` | Cash-flow model assumptions between runs |
+
+### Where your data lives
+
+Finance OS resolves its data directory in this order: `$OS_HUB_DATA_DIR/finance-os/` if the environment variable is set; else `./os-data/finance-os/` when `./os-data/` exists in your working folder (the per-OS subfolder is created as needed); else `~/.claude/plugins/data/finance-os/` (the Claude Code default). In Cowork, connect a business folder and create an `os-data/` folder inside it (setup and migrate offer to do this) — your data then lands in `./os-data/finance-os/`. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (invoices, transactions, cash-flow forecasts).
 
 Integrations and fallbacks — nothing fails hard:
 
@@ -69,6 +73,8 @@ Integrations and fallbacks — nothing fails hard:
 | Market & benchmark data | WebSearch | Your own figures, with a note |
 | Memory across sessions | claude-mem MCP server if installed (`fin:` prefix) | Proceeds silently without |
 | Jurisdiction conventions | legal-os config if installed (`cross_os.legal_os`) | Native research via WebSearch |
+
+**Live data when connected, exports otherwise:** if a relevant connector (bank, payments, CRM, helpdesk, SEO...) is available as an MCP server in your session, agents will offer to read from it directly; otherwise everything works from pasted exports. Discovery is at runtime — nothing is configured, no credentials are stored, and you can disable it with `connectors.enabled: false` in your config.
 
 **Never used:** bank logins, Stripe API keys, accounting-software credentials. If an agent ever seems to ask for one, that's a bug — it shouldn't.
 

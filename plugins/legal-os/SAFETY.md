@@ -29,6 +29,8 @@ national DPA) before acting.
 ## Data handling
 
 Your configuration, registries, logs, and compliance snapshots stay local under
-`~/.claude/plugins/data/legal-os/`. Legal OS does not transmit this data anywhere except
+`<DATA_DIR>` (resolved per the Data directory section of
+`${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`; by default
+`~/.claude/plugins/data/legal-os/`). Legal OS does not transmit this data anywhere except
 as part of your normal Claude Code session context. Do not store secrets (API keys,
 credentials) in prompts; avoid pasting more personal data than a task needs.

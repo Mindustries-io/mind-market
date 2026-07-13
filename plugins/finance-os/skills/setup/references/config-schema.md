@@ -1,6 +1,6 @@
 # Finance OS Config Schema
 
-Location: `~/.claude/plugins/data/finance-os/config.json`. All fields optional unless marked required — agents degrade gracefully per the startup protocol.
+Location: `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). The example default location is `~/.claude/plugins/data/finance-os/config.json` — that is location 3 of the resolution order. All fields optional unless marked required — agents degrade gracefully per the startup protocol.
 
 ```json
 {
@@ -65,6 +65,10 @@ Location: `~/.claude/plugins/data/finance-os/config.json`. All fields optional u
       { "name": "ExampleCompetitor", "pricing_url": "https://competitor.example.com/pricing" }
     ],
     "max_discount_pct": 15
+  },
+  "connectors": {
+    "enabled": true,                             // false = agents never probe for MCP connectors; exports only
+    "preferred": []                              // optional connector/product names to look for first, e.g. ["qonto", "stripe"]
   },
   "cross_os": {
     "legal_os": false,

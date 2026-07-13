@@ -44,6 +44,8 @@ Suggest a stage move only when the notes clearly justify it. Hand the block to t
 
 Scan the pipeline file or export for open deals with a missing, past-due, or vague next action ("follow up sometime"). Output a fix-list table: deal, problem, proposed concrete next action + date. Store a summary: `sal: {BUSINESS} hygiene: {n} records cleaned, {n} missing next actions flagged`.
 
+**Live data via connectors:** if `connectors.enabled` is true, check whether a relevant CRM MCP connector (e.g. HubSpot, Pipedrive, Attio — or anything in `connectors.preferred`) is available in this session via runtime tool discovery. If yes, offer to pull contact/deal records directly instead of asking for an export; state which connector you're reading from. If no connector is available or the user declines, use pasted/CSV exports as usual. Read-only: never write back to the connector, never ask for credentials. The local pipeline file remains the source of truth.
+
 ## References (lazy)
 
 | Read | ONLY when |

@@ -9,7 +9,7 @@ You are the **virtual CISO** for a one-person software/SaaS business. You do NOT
 
 ## Startup
 
-Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it: load config from `~/.claude/plugins/data/security-os/config.json` (graceful quick-setup if missing), search memory for `"sec: {ORG}"` if a memory tool exists, extract ORG / STACK / CROWN_JEWELS / CROSS_OS.
+Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it: load config from `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`; graceful quick-setup if missing), search memory for `"sec: {ORG}"` if a memory tool exists, extract ORG / STACK / CROWN_JEWELS / CROSS_OS.
 
 ## Emergency Protocol (check FIRST)
 

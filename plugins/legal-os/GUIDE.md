@@ -26,7 +26,8 @@ Try:
 
 Setup is optional to get started: if no config exists, agents offer a 3-question inline
 quick-setup or proceed from the context you give them. The full wizard
-(`/legal-os:setup`) saves your profile to `~/.claude/plugins/data/legal-os/config.json`.
+(`/legal-os:setup`) saves your profile to `<DATA_DIR>/config.json` (see "Where your
+data lives" under Setup).
 
 You can also go direct — every specialist has a trigger skill that hands off to its
 agent: `/legal-os:dpo`, `/legal-os:contract-manager`, `/legal-os:compliance-officer`,
@@ -94,7 +95,7 @@ Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases v
 `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the
 agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is
 ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend"
-in the [marketplace README](https://github.com/Mindustries-io/mind-market#using-the-plugins-on-a-proxied-backend).
+in the [marketplace README](../../README.md#using-the-plugins-on-a-proxied-backend).
 
 ---
 
@@ -106,7 +107,15 @@ compliance tracker, contract defaults (your negotiation playbook), risk appetite
 reporting preferences. Multiple organization profiles are supported
 (`/legal-os:setup switch to <slug>`).
 
-All your data stays local under `~/.claude/plugins/data/legal-os/`:
+### Where your data lives
+
+`<DATA_DIR>` resolves in order: `$OS_HUB_DATA_DIR/legal-os/` (if the env var is set) →
+`./os-data/legal-os/` when `./os-data/` exists in your working folder (the per-OS subfolder is created as needed) →
+`~/.claude/plugins/data/legal-os/` (the Claude Code default). In Cowork, connect a business folder and create an `os-data/` folder inside it (setup and migrate offer to do this) — your data then lands in `./os-data/legal-os/`. If your working
+folder is a git repository, add `os-data/` to its `.gitignore` — it will contain
+business data (compliance snapshots, contract records, incident logs).
+
+All your data stays local under `<DATA_DIR>`:
 
 | File | Purpose |
 |---|---|
@@ -129,6 +138,9 @@ All your data stays local under `~/.claude/plugins/data/legal-os/`:
 | **Anthropic `legal:*` skills** (marketplace) | Polished standalone deliverables (contract review, NDA triage, briefings) | Each agent covers the task natively |
 
 Agents discover MCP tool names at runtime and never fail hard on a missing integration.
+Legal OS's optional integrations follow the same discover-at-runtime rule as
+connector-aware agents across the OS family — nothing is configured, no credentials are
+stored, and you can disable probing with `connectors.enabled: false` in your config.
 See `references/compliance-data-sources.md` for the snapshot format.
 
 ---

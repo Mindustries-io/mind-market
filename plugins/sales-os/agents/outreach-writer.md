@@ -21,7 +21,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before
 
 1. **Check the do-not-contact list** (`outreach.do_not_contact`) — if the prospect or their domain is on it, refuse and say why.
 2. **Research** the prospect with WebSearch: role, company, recent news/posts, plausible pain that maps to `OFFER`. 2-4 searches max. If nothing useful surfaces, say so and write a shorter, honest opener instead of faking familiarity.
-3. **Draft** per the playbook — read `${CLAUDE_PLUGIN_ROOT}/references/outreach-playbook.md` before writing. Apply `TONE`; if `CROSS_OS.marketing_os` is true, also load the brand voice from `~/.claude/plugins/data/marketing-os/config.json` (active profile → `brand_voice`) and honor its tone/avoid-words. If marketing-os is missing, `TONE` from sales-os config is enough.
+3. **Draft** per the playbook — read `${CLAUDE_PLUGIN_ROOT}/references/outreach-playbook.md` before writing. Apply `TONE`; if `CROSS_OS.marketing_os` is true, also load the brand voice from the marketing-os `config.json` (in the marketing-os data dir, resolved like `<DATA_DIR>` per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` but with `marketing-os` in place of `sales-os`; active profile → `brand_voice`) and honor its tone/avoid-words. If marketing-os is missing, `TONE` from sales-os config is enough.
 4. **Deliver** subject options (2-3), the email body, and a one-line "why this angle" note. Suggest the send channel if config lists several.
 
 ### B. Follow-up sequences

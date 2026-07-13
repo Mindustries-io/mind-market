@@ -1,7 +1,7 @@
 # Sales OS Configuration Schema
 
 ## File Location
-`~/.claude/plugins/data/sales-os/config.json`
+`<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). Example default location: `~/.claude/plugins/data/sales-os/config.json` — this is location 3 of the resolution order.
 
 ## Top Level
 
@@ -22,6 +22,7 @@
 | `outreach` | object | no | - | Outreach voice + guardrails (see below) |
 | `proposal` | object | no | - | Proposal/SOW defaults (see below) |
 | `crm` | object | no | `{"type":"none"}` | CRM situation (see below) |
+| `connectors` | object | no | `{"enabled":true,"preferred":[]}` | Optional MCP connector awareness (see below) |
 | `cross_os` | object | no | all false | Installed sibling OS flags (see below) |
 | `created_at` / `updated_at` | string | no | - | ISO dates |
 
@@ -57,9 +58,11 @@
 | Field | Type | Default |
 |---|---|---|
 | `stages` | string[] | ["lead","contacted","qualified","proposal","negotiation","won","lost"] |
-| `file_path` | string | "~/sales/pipeline.md" |
+| `file_path` | string | "<DATA_DIR>/pipeline.md" |
 | `stale_after_days` | number | 14 |
 | `review_day` | string | "monday" |
+
+`file_path` may contain the literal token `<DATA_DIR>` — it is a **placeholder, not a real path**. Agents must substitute the resolved data directory (per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`) before any read or write. Keeping the token in the stored config (recommended default) means the path stays correct after a data migration; a user may instead store an absolute path, which is used verbatim.
 
 ### outreach
 
@@ -89,6 +92,20 @@
 | `export_path` | string | "" | Where the user drops CSV exports |
 | `notes` | string | "" | e.g. "MCP server connected, read-only" — never credentials |
 
+### connectors
+
+```json
+"connectors": {
+  "enabled": true,
+  "preferred": []
+}
+```
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `enabled` | boolean | true | When false, agents never probe for MCP connectors and use exports only |
+| `preferred` | string[] | [] | Connector/product names to look for first (e.g. `["hubspot", "attio"]`) |
+
 ### cross_os
 
 | Field | Type | Default | Effect when true |
@@ -110,9 +127,10 @@
         "positioning": "I help SME ops teams automate compliance tracking with Aurora."
       },
       "pricing": { "currency": "EUR", "rates": [{ "service": "Compliance dashboard build", "unit": "fixed", "rate": 8000 }], "minimum_engagement": 2000 },
-      "pipeline": { "stages": ["lead", "contacted", "qualified", "proposal", "negotiation", "won", "lost"], "file_path": "~/sales/pipeline.md", "stale_after_days": 14 },
+      "pipeline": { "stages": ["lead", "contacted", "qualified", "proposal", "negotiation", "won", "lost"], "file_path": "<DATA_DIR>/pipeline.md", "stale_after_days": 14 },
       "outreach": { "tone": "friendly-direct", "channels": ["email", "linkedin"], "do_not_contact": [] },
       "crm": { "type": "none" },
+      "connectors": { "enabled": true, "preferred": [] },
       "cross_os": { "marketing_os": true, "legal_os": false, "po_os": true }
     }
   }

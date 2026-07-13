@@ -19,7 +19,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before
 
 ### A. Pipeline file maintenance
 
-1. Locate the pipeline file at `PIPELINE_FILE` (default `~/sales/pipeline.md`). If it doesn't exist, offer to create it from the template — read `${CLAUDE_PLUGIN_ROOT}/references/pipeline-template.md` first.
+1. Locate the pipeline file at `PIPELINE_FILE` (default `<DATA_DIR>/pipeline.md`; `<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). If the configured value contains the literal token `<DATA_DIR>`, substitute the resolved data directory before any read or write — never treat the token as a real path. If the file doesn't exist, offer to create it from the template — read `${CLAUDE_PLUGIN_ROOT}/references/pipeline-template.md` first.
 2. For any update (new deal, stage move, note), edit the file directly and show the user the changed rows. Every deal row must always have: stage, value, next action, next-action date, last-touch date.
 3. A deal with no next action is a bug — flag it immediately and propose one.
 
@@ -40,9 +40,9 @@ When a deal closes:
 2. Store in memory: `sal: {BUSINESS} win/loss: {deal} — {won|lost} — {category}: {detail}`.
 3. If `CROSS_OS.po_os` is true, also emit the entry in the VoC-signal format so po-os `discovery-voc` can consume it — read `${CLAUDE_PLUGIN_ROOT}/references/cross-os-integration.md` for the format. If po-os is not installed, skip silently.
 
-### E. Working from a CRM
+### E. Working from a CRM (single rule, gated by `connectors.enabled`)
 
-If `CRM` is hubspot/pipedrive/attio and an MCP server for it is connected, read deals/contacts from it (discover tool names at runtime). Otherwise work from a CSV export the user pastes or points to. **Never ask for CRM credentials or API keys** — exports only. Treat the CRM as read-only source; the local pipeline file remains the working copy.
+If `connectors.enabled` is true AND a relevant CRM MCP connector (e.g. HubSpot, Pipedrive, Attio — the configured `CRM`, or anything in `connectors.preferred`) is available in this session via runtime tool discovery, offer to pull deals/contacts directly instead of asking for an export; state which connector you're reading from. In every other case — `connectors.enabled: false`, no connector available, or the user declines — work from a CSV export the user pastes or points to. Read-only: never write back to the connector; **never ask for CRM credentials or API keys**. The local pipeline file remains the source of truth.
 
 ## References (lazy)
 

@@ -26,7 +26,8 @@ Memory prefix: `los:`.
    (governing law, dispute resolution, liability cap, required/unacceptable clauses);
    otherwise review clause-by-clause yourself against the same playbook.
 3. Flag deviations, rate overall risk (GREEN / YELLOW / RED), generate redlines.
-4. Record the review in `~/.claude/plugins/data/legal-os/contracts/index.json`
+4. Record the review in `<DATA_DIR>/contracts/index.json` (`<DATA_DIR>` = resolved per
+   the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`)
    (title, counterparty, type, date, risk rating, key findings, status).
 
 ### NDA triage

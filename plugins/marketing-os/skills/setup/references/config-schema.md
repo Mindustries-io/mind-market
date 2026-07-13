@@ -1,7 +1,7 @@
 # Marketing OS Configuration Schema
 
 ## File Location
-`~/.claude/plugins/data/marketing-os/config.json`
+`<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). The example default location — location 3 of the resolution order — is `~/.claude/plugins/data/marketing-os/config.json`.
 
 ## Schema
 
@@ -26,6 +26,7 @@
 | `brand_voice` | object | no | - | Brand voice configuration (see below) |
 | `reporting` | object | no | - | Reporting preferences (see below) |
 | `integrations` | object | no | - | Optional integration flags (see below) |
+| `connectors` | object | no | - | Generic MCP connector awareness (see below) |
 | `created_at` | string | no | - | ISO date of profile creation |
 | `updated_at` | string | no | - | ISO date of last update |
 
@@ -69,6 +70,22 @@ All integrations are optional; agents also probe actual tool availability at run
 | `ahrefs` | boolean | false | Agents use WebSearch + user-provided data with a "degraded insights" note |
 | `claude_mem` | boolean | false | Cross-session memory steps are skipped silently |
 | `nano_banana` | boolean | false | Agents deliver image prompts instead of generated images |
+
+### Connectors Object
+
+Generic on/off switch for MCP connector awareness. Coexists with `integrations` (which keeps its per-tool flags): `connectors` governs whether agents probe for any relevant connector at runtime.
+
+```json
+"connectors": {
+  "enabled": true,
+  "preferred": []
+}
+```
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `enabled` | boolean | true | When false, agents never probe for connectors and use exports only |
+| `preferred` | string[] | [] | Optional connector/product names to look for first (e.g. ["ahrefs"]) |
 
 ## Ahrefs Country Codes (Common)
 

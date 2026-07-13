@@ -32,7 +32,23 @@ Each plugin follows the same shape:
 - **Orchestrator skill** — the entry point (`/marketing-os:cmo`, `/legal-os:general-counsel`, ...). Routes single-task requests straight to one specialist (fast mode) and only runs multi-agent pipelines for genuinely multi-domain work.
 - **Specialist agents** (`agents/*.md`) — each declares its own `model` and `effort` in frontmatter: `haiku`/low for mechanical work (lookups, triage, categorization), `sonnet`/medium for playbook-driven drafting, and `inherit`/high for judgment-heavy work (contracts, DPIAs, threat models, tax planning).
 - **Thin trigger skills** — every specialist also has a slash-command skill that delegates to its agent, so `/legal-os:dpo`-style direct invocation still works.
-- **Local config** — your profile lives at `~/.claude/plugins/data/<os>/config.json`, created by each OS's setup wizard. No credentials are ever stored; integrations work from exports and pasted data.
+- **Local config** — your profile lives in a per-OS data directory (see "Where your data lives" below), created by each OS's setup wizard. No credentials are ever stored; integrations work from exports and pasted data — or live from connected MCP tools when available.
+
+## Where your data lives
+
+Every OS resolves its data directory (config, ledgers, logs) in this order:
+
+1. `$OS_HUB_DATA_DIR/<os>/` — if the `OS_HUB_DATA_DIR` environment variable is set.
+2. `./os-data/<os>/` — selected when an `os-data/` folder exists in the working directory; the per-OS subfolder is created automatically. This is the Cowork path: connect a business folder and create `os-data/` inside it (setup and migrate offer to do this) — data then lands inside it. Merely connecting a folder without an `os-data/` directory falls back to location 3.
+3. `~/.claude/plugins/data/<os>/` — the Claude Code default (unchanged for existing users).
+
+The OS first *selects* the active location — 1 if `OS_HUB_DATA_DIR` is set, else 2 if `./os-data/` exists in the working folder, else 3 — and reads and writes there, creating directories as needed. A deliberately selected location (1 or 2) that turns out to be empty is never silently skipped in favor of old data elsewhere: the OS offers to migrate your existing data in, or runs setup fresh (see below). **If your working folder is a git repository, add `os-data/` to its `.gitignore`** — it will contain business data (finances, clients, tickets).
+
+**Centralising data across sessions:** point `OS_HUB_DATA_DIR` at an `os-data` folder inside a synced location (e.g. `~/OneDrive/business/os-data`) and persist it in the Claude Code settings file at `~/.claude/settings.json` under `"env"` so every future session resolves there. In Cowork — where the env var isn't available — connect the **parent** folder that contains `os-data/` (e.g. `~/OneDrive/business`), not the `os-data` folder itself: location 2 checks for `./os-data/` inside the working folder, so connecting the parent makes `./os-data/<os>/` resolve to the very same files. Already have data scattered across locations? Run `/<os>:setup migrate` — it scans all three locations, copies everything to the target you choose, verifies, walks you through confirming any stale or incomplete fields, and only then offers to retire the originals. If an OS ever finds data in more than one location, it warns you instead of silently picking one. And if you point `OS_HUB_DATA_DIR` (or a connected folder) at an *empty* location, the OS doesn't silently fall back to old data — it offers to migrate your existing data in, or runs setup fresh if there's nothing to migrate.
+
+## Live data when connected, exports otherwise
+
+The OSs are exports-first: everything works from pasted text and CSV exports. But when a relevant MCP connector is available in your session — a bank or payments tool for finance-os (e.g. Qonto, Stripe), a CRM for sales-os, a helpdesk for support-os, an SEO suite for marketing-os — agents discover it at runtime and offer to read live data instead. Discovery is by product name, read-only, never stores credentials, and can be disabled per OS with `connectors.enabled: false` in the config (or pinned with `connectors.preferred`).
 
 ## Models, cost, and third-party backends
 

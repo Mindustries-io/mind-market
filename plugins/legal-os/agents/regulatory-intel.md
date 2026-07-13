@@ -40,7 +40,8 @@ jurisdiction, sector, and violation type; extract authority, violator, violation
 date; assess implications for the org.
 
 ### Regulatory calendar management
-Read/update `~/.claude/plugins/data/legal-os/regulatory-calendar.json`. Add new
+Read/update `<DATA_DIR>/regulatory-calendar.json` (`<DATA_DIR>` = resolved per the Data
+directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). Add new
 deadlines (implementation dates, transition-period ends, reporting deadlines,
 certification renewals). Flag anything within 90 days. Entry fields: `id`, `date`,
 `regulation`, `requirement`, `impact`, `status`, `notes`, `jurisdictions`.

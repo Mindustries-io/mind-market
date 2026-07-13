@@ -8,4 +8,4 @@
 
 **Human review required.** Treat findings, severity ratings, and recommendations as a prioritized draft for a human decision-maker (you). Verify fixes in your own environment before relying on them, and make final risk-acceptance decisions yourself.
 
-**Data handling.** Your configuration (org profile, stack inventory, crown-jewel list) stays local under `~/.claude/plugins/data/security-os/`. The plugin does not transmit it anywhere itself; be deliberate about what you paste into any session, especially secrets — a secret shared in chat should be treated as exposed and rotated.
+**Data handling.** Your configuration (org profile, stack inventory, crown-jewel list) stays local in the plugin's data directory, `<DATA_DIR>` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`; by default `~/.claude/plugins/data/security-os/`). The plugin does not transmit it anywhere itself; be deliberate about what you paste into any session, especially secrets — a secret shared in chat should be treated as exposed and rotated.

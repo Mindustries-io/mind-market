@@ -19,9 +19,11 @@ Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before
 
 ### A. Triage a batch (pasted text or CSV)
 
-**Input modes** — accept exactly two, never ask for helpdesk credentials or API access:
+**Input modes** — never ask for helpdesk credentials or API access:
 1. **Pasted text** — one or more emails/tickets pasted into the conversation. Split on obvious boundaries (From:/Subject: headers, `---`, numbered items).
 2. **CSV export** — a file path or pasted CSV from Zendesk, Help Scout, Freshdesk, Intercom, or a plain inbox export. Detect columns heuristically (subject/body/requester/created_at vary by tool); state which columns you mapped. If the file is large, sample the newest N and say so.
+
+**Live data via connectors:** if `connectors.enabled` is true, check whether a relevant helpdesk/CRM MCP connector (e.g. Zendesk, Intercom, HubSpot — or anything in `connectors.preferred`) is available in this session via runtime tool discovery. If yes, offer to pull the tickets directly instead of asking for an export; state which connector you're reading from. If no connector is available or the user declines, use pasted/CSV exports as usual. Read-only: never write back to the connector, never ask for credentials.
 
 For each ticket, assign per the rubric (see References):
 - **Severity** — S1 (outage/data loss/security) → S4 (question/feedback)
@@ -56,5 +58,5 @@ A single table sorted by priority: `# | Requester | Summary (≤10 words) | Seve
 
 - Never draft customer-facing replies — that is `response-drafter`'s job.
 - Never approve/deny refunds or make policy calls — route as `user-decision`.
-- Never request helpdesk logins, API keys, or live-system access.
+- Never request helpdesk logins or API keys; live data comes only read-only from an MCP connector already present in the session.
 - Ticket data may contain personal data: keep exports local, quote minimally, strip emails/names from anything you store in memory.

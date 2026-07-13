@@ -6,8 +6,8 @@ The promise: **no ticket unanswered, no pattern unnoticed, no answer written twi
 
 ## Quick start
 
-1. Install the plugin from the Mindustries marketplace.
-2. Run `/support-os:setup` — the wizard asks for your product, channels, tone, SLA targets, and refund policy (about 3 minutes). Config is saved locally to `~/.claude/plugins/data/support-os/config.json`.
+1. Install the plugin from the marketplace (see the repository README).
+2. Run `/support-os:setup` — the wizard asks for your product, channels, tone, SLA targets, and refund policy (about 3 minutes). Config is saved locally to `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`) — see "Where your data lives" below.
 3. Paste a few tickets (or point at a helpdesk CSV export) and say: *"triage these"* — or paste one email and say *"reply to this customer"*.
 
 Skipped setup? Any skill will offer a 3-question quick-setup inline and keep going.
@@ -51,7 +51,7 @@ Skipped setup? Any skill will offer a 3-question quick-setup inline and keep goi
 | `insights-analyst` | `sonnet` | medium | Cross-ticket clustering and synthesis |
 | `support-lead` (orchestrator) | your session model | — | Runs in the main conversation |
 
-**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](https://github.com/Mindustries-io/mind-market#using-the-plugins-on-a-proxied-backend).
+**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](../../README.md#using-the-plugins-on-a-proxied-backend).
 
 Cost shape: a typical "handle my inbox" session is one cheap haiku pass over the whole batch plus sonnet drafts only for the tickets that need real replies.
 
@@ -59,11 +59,13 @@ Cost shape: a typical "handle my inbox" session is one cheap haiku pass over the
 
 | Integration | Used for | Fallback if missing |
 |---|---|---|
-| Helpdesk tool (Zendesk, Help Scout, Freshdesk, Intercom, …) | Interpreting **local CSV exports** only — support-os never connects to helpdesk APIs or asks for credentials | Paste ticket text directly |
+| Helpdesk tool (Zendesk, Help Scout, Freshdesk, Intercom, …) | **Local CSV exports** by default; read-only pulls via an MCP connector already in your session when `connectors.enabled` is true — never credentials or API keys | Paste ticket text directly |
 | marketing-os plugin | Reusing your configured brand voice for replies and articles | `voice` section of support-os config; else a friendly-professional default |
 | po-os plugin | `insights-analyst` emits findings as Discovery Insights that po-os `discovery-voc` consumes for backlog synthesis | Same findings presented directly to you, labeled as product signal |
 | Memory tool (e.g. claude-mem MCP) | Canned-response library, KB inventory, trend history under the `sup:` prefix | Everything still works per-session; durable libraries are re-seeded from your files |
 | WebSearch / WebFetch | Occasional public-docs lookups | Paste the relevant text |
+
+**Live data when connected, exports otherwise:** if a relevant connector (bank, payments, CRM, helpdesk, SEO...) is available as an MCP server in your session, agents will offer to read from it directly; otherwise everything works from pasted exports. Discovery is at runtime — nothing is configured, no credentials are stored, and you can disable it with `connectors.enabled: false` in your config.
 
 ## Memory
 
@@ -80,6 +82,10 @@ Full schema: `skills/setup/references/config-schema.md`. Highlights:
 - `cross_os` — `po_os` / `marketing_os` flags.
 
 Multiple products are supported via profiles; switch with `/support-os:setup`.
+
+### Where your data lives
+
+Config and data files resolve in this order: (1) `$OS_HUB_DATA_DIR/support-os/` if that environment variable is set, (2) `./os-data/support-os/` when `./os-data/` exists in your working folder (the per-OS subfolder is created as needed), (3) `~/.claude/plugins/data/support-os/` (the Claude Code default). In Cowork, connect a business folder and create an `os-data/` folder inside it (setup and migrate offer to do this) — your data then lands in `./os-data/support-os/`. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (customer tickets, complaint threads, canned responses).
 
 ## Example session
 

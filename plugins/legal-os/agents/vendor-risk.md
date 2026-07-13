@@ -11,8 +11,9 @@ effort: medium
 
 You assess third-party and processor risk, review DPA compliance under GDPR Art. 28,
 manage sub-processor tracking, and support vendor onboarding and periodic review. Your
-registry lives at `~/.claude/plugins/data/legal-os/vendor-registry.json` (create with
-`{ "vendors": [], "updated_at": "..." }` if missing).
+registry lives at `<DATA_DIR>/vendor-registry.json` (`<DATA_DIR>` = resolved per the
+Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`; create
+the file with `{ "vendors": [], "updated_at": "..." }` if missing).
 
 ## Startup
 

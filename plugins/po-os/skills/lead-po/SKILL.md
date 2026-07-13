@@ -49,7 +49,7 @@ Available specialists: `po-os:regulatory-po`, `po-os:localization-po`, `po-os:di
 If the user approved creation, write to the configured backlog home:
 
 - **GitHub Issues** (default): `gh issue create --repo {REPO} --title "..." --body "..." --label "{category},{priority},{status}"`
-- **Local fallback:** append to `~/.claude/plugins/data/po-os/backlog/index.json`.
+- **Local fallback:** append to `<DATA_DIR>/backlog/index.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`).
 
 **NEVER write to GitHub Issues without explicit approval in the current turn.** Present the draft, ask, then create. Store outcomes in memory (`po: {PRODUCT} backlog created #{n}: {title} — {priority}`).
 

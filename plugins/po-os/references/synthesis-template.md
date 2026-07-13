@@ -21,7 +21,7 @@ Each raw signal becomes an **observation** with this shape:
 }
 ```
 
-Store observations (append-only) in `~/.claude/plugins/data/po-os/discovery-log.json` so they accumulate across sessions.
+Store observations (append-only) in `<DATA_DIR>/discovery-log.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`) so they accumulate across sessions.
 
 ## Clustering Method
 

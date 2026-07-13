@@ -18,8 +18,9 @@ readiness assessment/drill.
 ## Startup
 
 Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before any task.
-Memory prefix: `los:`. Also read `~/.claude/plugins/data/legal-os/incident-log.json` for
-ongoing incidents (create it if missing).
+Memory prefix: `los:`. Also read `<DATA_DIR>/incident-log.json` (`<DATA_DIR>` = resolved
+per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`)
+for ongoing incidents (create it if missing).
 
 ## Workflows
 

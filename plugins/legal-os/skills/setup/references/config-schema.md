@@ -1,7 +1,9 @@
 # Legal OS Configuration Schema
 
 ## File Location
-`~/.claude/plugins/data/legal-os/config.json`
+`<DATA_DIR>/config.json`, resolved per the Data directory section of
+`${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`. The example default location —
+location 3 of the resolution order — is `~/.claude/plugins/data/legal-os/config.json`.
 
 ## Schema
 
@@ -28,6 +30,7 @@
 | `contract_defaults` | object | no | - | Contract negotiation playbook (see below) |
 | `risk_appetite` | object | no | - | Risk thresholds (see below) |
 | `reporting` | object | no | - | Reporting preferences (see below) |
+| `connectors` | object | no | - | Optional MCP connector awareness (see below) |
 | `created_at` | string | no | - | ISO date of profile creation |
 | `updated_at` | string | no | - | ISO date of last update |
 
@@ -80,6 +83,20 @@ assessments). See `${CLAUDE_PLUGIN_ROOT}/references/compliance-data-sources.md`.
 | `level` | string | "moderate" | "conservative", "moderate", "aggressive" |
 | `escalation_threshold` | string | "medium" | Risk level requiring human review: "low", "medium", "high" |
 | `auto_approve_threshold` | string | "none" | Risk level agents can handle alone: "none", "low" |
+
+### Connectors Object
+
+```json
+"connectors": {
+  "enabled": true,
+  "preferred": []
+}
+```
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `enabled` | boolean | true | When false, agents never probe for connectors and use exports only |
+| `preferred` | string[] | [] | Optional list of connector/product names to look for first |
 
 ### Reporting Object
 

@@ -6,12 +6,16 @@ Security OS is a defensive-security Operating System for a one-person software/S
 
 ## Quick Start
 
-1. Install the plugin from the Mindustries marketplace.
+1. Install the plugin from the marketplace (see the repository README).
 2. Run the setup wizard: ask for **"security os setup"** (or `/security-os:setup`). It captures your org profile, stack inventory, crown-jewel data, and existing controls in about five minutes.
 3. Get a baseline: **"run a security posture check"** — the hardening auditor scores your setup and gives you a top-5 action list.
 4. From then on, just talk to the CISO: "review the security of my API", "threat model this feature", "is this vendor safe?", "I think my key leaked".
 
-Configuration lives at `~/.claude/plugins/data/security-os/config.json` — local to your machine, never uploaded anywhere by the plugin.
+Configuration lives at `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`) — local to your machine, never uploaded anywhere by the plugin.
+
+### Where your data lives
+
+Security OS resolves its data directory in this order: `$OS_HUB_DATA_DIR/security-os/` if the `OS_HUB_DATA_DIR` environment variable is set; else `./os-data/security-os/` when `./os-data/` exists in your working folder (the per-OS subfolder is created as needed); else `~/.claude/plugins/data/security-os/` (the Claude Code default). In Cowork, connect a business folder and create an `os-data/` folder inside it (setup and migrate offer to do this) — your data then lands in `./os-data/security-os/`. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (org profile, stack inventory, crown-jewel list).
 
 ## Architecture
 
@@ -53,7 +57,7 @@ Configuration lives at `~/.claude/plugins/data/security-os/config.json` — loca
 
 `inherit` keeps your session model, so the judgment-heavy agents run on whatever you're already paying for — including proxied/third-party backends.
 
-**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](https://github.com/Mindustries-io/mind-market#using-the-plugins-on-a-proxied-backend).
+**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](../../README.md#using-the-plugins-on-a-proxied-backend).
 
 ## Integrations (all optional, all with fallbacks)
 
@@ -67,9 +71,11 @@ Configuration lives at `~/.claude/plugins/data/security-os/config.json` — loca
 
 Nothing fails hard on a missing integration — agents state the gap and continue.
 
+Security OS's optional integrations follow the same discover-at-runtime rule as connector-aware plugins: tools are found by name at runtime, nothing is configured, no credentials are stored, and you can disable connector probing with `connectors.enabled: false` in your config.
+
 ## Cross-OS: working with legal-os
 
-If the Mindustries `legal-os` plugin is installed (set `cross_os.legal_os_installed` in setup):
+If the `legal-os` plugin is installed (set `cross_os.legal_os_installed` in setup):
 
 - **Vendors:** `vendor-security` covers the security side and stores findings under `sec:vendor:<slug>` memory keys; `legal-os:vendor-risk` picks them up for the DPA/contract side. One vendor, two lenses, no duplicated work.
 - **Incidents:** if personal data may be affected, `security-incident` hands the GDPR 72-hour notification track to `legal-os:incident-response` and keeps driving technical containment.

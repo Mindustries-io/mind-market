@@ -15,6 +15,8 @@ You draft invoices, run a polite-to-firm three-step late-payment chase sequence,
 
 Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before any task. Memory prefix: `fin:`.
 
+**Live data via connectors:** if `connectors.enabled` is true, check whether a relevant banking/payments MCP connector (e.g. Qonto, Stripe — or anything in `connectors.preferred`) is available in this session via runtime tool discovery. If yes, offer to pull invoice and payment data directly instead of asking for an export; state which connector you're reading from. If no connector is available or the user declines, use pasted/CSV exports as usual. Read-only: never write back to the connector, never ask for credentials. Ledger writes stay local to `<DATA_DIR>` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`).
+
 ## Workflows
 
 ### A. Draft an invoice
@@ -35,7 +37,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before
 
 ### C. Outstanding-invoice ledger review
 
-1. Read `~/.claude/plugins/data/finance-os/invoices.json`. If missing, offer to create it from a user paste of current outstanding invoices.
+1. Read `<DATA_DIR>/invoices.json`. If missing, offer to create it from a user paste of current outstanding invoices.
 2. Auto-derive statuses (`overdue` when past due and unpaid) and present: total outstanding, aging buckets (current / 1–30 / 31–60 / 60+), next chase actions.
 3. Apply user-reported updates (payments received, write-offs) — always show the before/after diff and get confirmation before writing the file.
 

@@ -16,7 +16,11 @@ A sales operating system for a one-person business. One orchestrator (the Sales 
 
 The wizard captures: your offer and services · pricing/rates · ideal customer profile (ICP) · pipeline stages and file location · outreach tone and do-not-contact list · proposal defaults (terms, tiers, validity) · your CRM situation · which sibling OS plugins you have.
 
-Config is saved to `~/.claude/plugins/data/sales-os/config.json`. Multiple business profiles are supported. If you skip setup, agents still work — they'll offer a 3-question quick-setup or proceed with reduced personalization.
+Config is saved to `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). Multiple business profiles are supported. If you skip setup, agents still work — they'll offer a 3-question quick-setup or proceed with reduced personalization.
+
+### Where your data lives
+
+Your config and data files live in `<DATA_DIR>`, resolved in this order: `$OS_HUB_DATA_DIR/sales-os/` if that environment variable is set → `./os-data/sales-os/` when `./os-data/` exists in your working folder (the per-OS subfolder is created as needed) → `~/.claude/plugins/data/sales-os/` (the Claude Code default). In Cowork, connect a business folder and create an `os-data/` folder inside it (setup and migrate offer to do this) — your data then lands in `./os-data/sales-os/`. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (deals, prospects, win/loss history).
 
 ### 2. Talk to the Sales Director
 
@@ -71,7 +75,7 @@ Agents are tiered so routine work stays cheap:
 | outreach-writer | `sonnet` | medium | Playbook-driven drafting with research and voice matching |
 | proposal-drafter | `sonnet` | medium | Playbook-driven drafting with pricing structure judgment |
 
-**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](https://github.com/Mindustries-io/mind-market#using-the-plugins-on-a-proxied-backend).
+**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](../../README.md#using-the-plugins-on-a-proxied-backend).
 
 ---
 
@@ -88,7 +92,7 @@ Agents are tiered so routine work stays cheap:
 references/                         (startup protocol + lazy-loaded playbooks/templates)
 ```
 
-Your pipeline lives in a plain markdown file you own (default `~/sales/pipeline.md`) — no SaaS lock-in. CRMs, if you have one, are treated as read-only sources via exports.
+Your pipeline lives in a plain markdown file you own (default `<DATA_DIR>/pipeline.md`, configurable) — no SaaS lock-in. CRMs, if you have one, are treated as read-only sources via exports.
 
 ---
 
@@ -102,6 +106,8 @@ Your pipeline lives in a plain markdown file you own (default `~/sales/pipeline.
 | marketing-os | Brand voice reuse in outreach | sales-os `outreach.tone` config |
 | legal-os | Contract-manager escalation for custom terms | Recommendation to get human lawyer review |
 | po-os | Win/loss reasons feed discovery-voc | Reasons stay in `sal:` memory for later |
+
+**Live data when connected, exports otherwise:** if a relevant connector (bank, payments, CRM, helpdesk, SEO...) is available as an MCP server in your session, agents will offer to read from it directly; otherwise everything works from pasted exports. Discovery is at runtime — nothing is configured, no credentials are stored, and you can disable it with `connectors.enabled: false` in your config.
 
 ---
 
@@ -138,6 +144,6 @@ Sales OS drafts outreach; **you send it and own compliance**. E-marketing and an
 ## Troubleshooting
 
 - **"Config not found"** — run `/sales-os:setup`, or answer the inline quick-setup when an agent offers it.
-- **Wrong business context** — check `active_profile` in `~/.claude/plugins/data/sales-os/config.json`.
+- **Wrong business context** — check `active_profile` in `<DATA_DIR>/config.json`.
 - **Agent asks for a CRM export** — that's by design; Sales OS never takes CRM credentials.
 - **Pipeline file missing** — any pipeline task offers to create it from the built-in template.
