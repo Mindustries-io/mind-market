@@ -11,7 +11,7 @@ Every Security OS agent and skill follows these steps before doing any task.
 3. Else → `~/.claude/plugins/data/security-os/` (Claude Code default; unchanged for existing users).
 
 - **READ** (config.json, snapshots): first SELECT the active location — 1 if `OS_HUB_DATA_DIR` is set, else 2 if `./os-data/` exists in the working directory, else 3 — and read from it. If a deliberately selected location (1 or 2) contains no `config.json`, do NOT silently fall back — apply the "Empty but deliberately selected location" section below. If location 3 is selected and empty, offer the quick setup per the configuration-load step.
-- **WRITE** (setup wizard writing config.json; data files): use the first WRITABLE location in the same order, creating directories as needed. In practice: env var if set, else `./os-data/security-os/` if the CWD is writable and the session is a sandbox/Cowork-style session or `./os-data/` already exists, else the home path. When both 2 and 3 are plausible on WRITE and neither exists yet, prefer 3 (home) in Claude Code and 2 in sandboxed sessions where 3 is unreachable — the practical test is: try in order, first successful write wins.
+- **WRITE** (setup wizard writing config.json; data files): write to the SELECTED location (same selection rule as READ), creating directories as needed. If the selected location is not writable (e.g. the home path in a sandboxed session), fall back to the next location in priority order and tell the user where the file actually landed.
 
 ## 1. Load Configuration
 

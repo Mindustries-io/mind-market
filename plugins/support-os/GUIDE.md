@@ -85,7 +85,7 @@ Multiple products are supported via profiles; switch with `/support-os:setup`.
 
 ### Where your data lives
 
-Config and data files resolve in this order: (1) `$OS_HUB_DATA_DIR/support-os/` if that environment variable is set, (2) `./os-data/support-os/` in your current working folder if it exists, (3) `~/.claude/plugins/data/support-os/` (the Claude Code default). In Cowork, connect a business folder so your data lands in `./os-data/support-os/` inside it. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (finances, clients, tickets).
+Config and data files resolve in this order: (1) `$OS_HUB_DATA_DIR/support-os/` if that environment variable is set, (2) `./os-data/support-os/` in your current working folder if it exists, (3) `~/.claude/plugins/data/support-os/` (the Claude Code default). In Cowork, connect a business folder so your data lands in `./os-data/support-os/` inside it. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (customer tickets, complaint threads, canned responses).
 
 ## Example session
 

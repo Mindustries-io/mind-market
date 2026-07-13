@@ -114,7 +114,7 @@ reporting preferences. Multiple organization profiles are supported
 `~/.claude/plugins/data/legal-os/` (the Claude Code default). In Cowork, connect a
 business folder so your data lands in `./os-data/legal-os/` inside it. If your working
 folder is a git repository, add `os-data/` to its `.gitignore` — it will contain
-business data (finances, clients, tickets).
+business data (compliance snapshots, contract records, incident logs).
 
 All your data stays local under `<DATA_DIR>`:
 

@@ -129,7 +129,7 @@ Store these flags; specialists read them to decide when to call sibling plugins.
 
 ### Step 9: Connected Tools (optional)
 
-Ask: "Do you use any connected tools I should pull live data from? (optional, Enter to skip)". Store the answer as `connectors.enabled` (default `true`) and any named products in `connectors.preferred` (see `references/config-schema.md`).
+Ask: "Do you use any connected tools I should pull live data from? (optional, Enter to skip)". Store any named products as lowercase strings in `connectors.preferred`. `connectors.enabled` is a boolean and defaults to `true` — set it to `false` only if the user explicitly wants exports-only (no live connections). See `references/config-schema.md`.
 
 ### Step 10: Write Configuration
 
@@ -194,7 +194,7 @@ When invoked with `migrate` — or whenever the user asks to move, consolidate, 
 
 1. **Scan** all three resolution locations for po-os data files (config.json plus any data files listed in the schema/GUIDE). Report what exists where: absolute path, files found, last-modified dates.
 2. **Ask for the target**, recommending in this order:
-   - `$OS_HUB_DATA_DIR/po-os/` — best for "same data in every future session". Suggest pointing it at a synced folder (OneDrive, Dropbox, etc.) and remind the user to persist the variable in Claude Code `settings.json` under `"env"` so every future session sees it. In Cowork, connect that same synced folder and the `./os-data/` path resolves to the same data.
+   - `$OS_HUB_DATA_DIR/po-os/` — best for "same data in every future session". Suggest pointing it at an `os-data` folder inside a synced location (e.g. `<OneDrive>/business/os-data`) and remind the user to persist the variable in `~/.claude/settings.json` under `"env"` so every future session sees it. For Cowork — where the env var is not available — have them connect the folder that CONTAINS `os-data/` as the working folder: location 2 (`./os-data/po-os/`) then resolves to the very same files the env var points to elsewhere.
    - `./os-data/po-os/` in the current working folder — right when this folder IS the business folder they connect in Cowork.
    - `~/.claude/plugins/data/po-os/` — fine for single-machine, Claude Code-only use.
 3. **Copy** (never move yet) every data file to the target, creating directories as needed. On a name collision, keep the newer file and say so. List exactly what will be copied before doing it.
