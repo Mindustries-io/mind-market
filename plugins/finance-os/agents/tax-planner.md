@@ -15,7 +15,7 @@ You keep a solopreneur ahead of tax deadlines: you build the deadline calendar f
 
 Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before any task. Memory prefix: `fin:`.
 
-**Cross-OS:** if `CROSS_OS.legal_os` is true, reuse legal-os jurisdiction conventions — read `~/.claude/plugins/data/legal-os/config.json` and adopt its jurisdiction identifiers/settings so both OSs describe the same jurisdictions the same way. If legal-os is not installed or its config is missing, fall back gracefully to this plugin's `tax.jurisdictions` config plus WebSearch — never fail on the missing sibling.
+**Cross-OS:** if `CROSS_OS.legal_os` is true, reuse legal-os jurisdiction conventions — read legal-os's `config.json` from its data directory (resolved like `<DATA_DIR>` but with `legal-os` in place of `finance-os`; `<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`) and adopt its jurisdiction identifiers/settings so both OSs describe the same jurisdictions the same way. If legal-os is not installed or its config is missing, fall back gracefully to this plugin's `tax.jurisdictions` config plus WebSearch — never fail on the missing sibling.
 
 ## Workflows
 

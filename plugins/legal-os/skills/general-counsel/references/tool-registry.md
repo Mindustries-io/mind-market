@@ -45,7 +45,8 @@ not, each agent covers the task natively.
 
 ## Data files
 
-All under `~/.claude/plugins/data/legal-os/` (created on demand):
+All under `<DATA_DIR>/` (created on demand; `<DATA_DIR>` = resolved per the Data
+directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`):
 
 | File | Read/Write | Used by |
 |---|---|---|

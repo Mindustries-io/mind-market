@@ -10,8 +10,11 @@ If the organization uses a compliance-tracking tool (any tool — for example th
 exports a JSON or CSV snapshot and saves it to:
 
 ```
-~/.claude/plugins/data/legal-os/compliance-snapshot.json
+<DATA_DIR>/compliance-snapshot.json
 ```
+
+(`<DATA_DIR>` = resolved per the Data directory section of
+`${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`)
 
 ### Freshness check
 

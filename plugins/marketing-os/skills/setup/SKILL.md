@@ -9,7 +9,7 @@ You are the **Setup Wizard** for Marketing OS. Your job is to configure a brand 
 
 ## Configuration File
 
-All brand profiles are stored in: `~/.claude/plugins/data/marketing-os/config.json`
+All brand profiles are stored in: `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`)
 
 If this file doesn't exist, create it. If it exists, read it first to preserve existing profiles.
 
@@ -30,6 +30,8 @@ Ask which optional integrations are connected (use AskUserQuestion). Store the a
 1. **Ahrefs MCP server connected?** -> `integrations.ahrefs`. If yes, live SEO/analytics/Brand Radar data is used. If no, agents fall back to WebSearch + user-provided data and mark outputs as "degraded insights". You can also probe availability at runtime: discover Ahrefs tools by name via ToolSearch or the tool list — never assume hardcoded tool IDs.
 2. **claude-mem (memory MCP) available?** -> `integrations.claude_mem`. If no, cross-session memory is skipped silently.
 3. **nano-banana (image MCP) available?** -> `integrations.nano_banana`. If no, agents deliver image prompts instead of generated images.
+
+Then one optional connector question: "Do you use any connected tools I should pull live data from? (optional, Enter to skip)". Store the answer under `connectors` (`enabled` defaults to true; names the user mentions go into `connectors.preferred`).
 
 ### Step 3: Auto-Discovery (only if `integrations.ahrefs` is true)
 
@@ -82,9 +84,9 @@ Ask:
 
 ### Step 8: Write Configuration
 
-Create the directory if needed:
+Resolve `<DATA_DIR>` per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and create the directory if needed, e.g.:
 ```bash
-mkdir -p ~/.claude/plugins/data/marketing-os
+mkdir -p <DATA_DIR>
 ```
 
 Write `config.json` with this structure:
@@ -133,6 +135,10 @@ Write `config.json` with this structure:
         "claude_mem": false,
         "nano_banana": false
       },
+      "connectors": {
+        "enabled": true,
+        "preferred": []
+      },
       "created_at": "2026-04-04",
       "updated_at": "2026-04-04"
     }
@@ -142,7 +148,7 @@ Write `config.json` with this structure:
 
 ### Step 9: Confirmation
 
-Display a summary of the configured profile in a clean table format. Tell the user:
+Display a summary of the configured profile in a clean table format. State the absolute path where the config was actually written. If it fell back to location 3 (the home path), add: "If you're running in Cowork, connect a business folder and re-run setup so your data lands in `./os-data/marketing-os/` inside it." Tell the user:
 - They can run `/marketing-os:setup` again to modify settings or add another brand
 - They can now use `/marketing-os:cmo` to start working
 - All specialist agents are available directly via `/marketing-os:<specialist-name>`
@@ -157,3 +163,19 @@ If the user already has profiles:
 ## Quick Edits
 
 If the user provides a specific argument (e.g., "add competitor example.com" or "ahrefs is now connected"), skip the full wizard and make the targeted change to the active profile (integration flags live under `integrations`).
+
+## Migrating your data (`/marketing-os:setup migrate`)
+
+When invoked with `migrate` — or whenever the user asks to move, consolidate, or centralise their data:
+
+1. **Scan** all three resolution locations for marketing-os data files (config.json plus any data files listed in the schema/GUIDE). Report what exists where: absolute path, files found, last-modified dates.
+2. **Ask for the target**, recommending in this order:
+   - `$OS_HUB_DATA_DIR/marketing-os/` — best for "same data in every future session". Suggest pointing it at a synced folder (OneDrive, Dropbox, etc.) and remind the user to persist the variable in Claude Code `settings.json` under `"env"` so every future session sees it. In Cowork, connect that same synced folder and the `./os-data/` path resolves to the same data.
+   - `./os-data/marketing-os/` in the current working folder — right when this folder IS the business folder they connect in Cowork.
+   - `~/.claude/plugins/data/marketing-os/` — fine for single-machine, Claude Code-only use.
+3. **Copy** (never move yet) every data file to the target, creating directories as needed. On a name collision, keep the newer file and say so. List exactly what will be copied before doing it.
+4. **Verify** by reading `config.json` back from the target.
+5. Only after verification, **offer** to rename the originals with a `.migrated` suffix so future sessions resolve unambiguously. Never delete without an explicit yes.
+6. If the target is inside a git repository, remind the user to add `os-data/` to `.gitignore`.
+7. **Post-migration review:** walk through the migrated `config.json` and confirm anything vague — empty fields, fields introduced by newer plugin versions (e.g. `connectors`), or values that look stale (old dates, placeholder text, competitors/rates that may have changed). One short confirm-or-update question per flagged item; write the refreshed config to the new location.
+8. **Empty target, no source:** if the chosen target is empty and the scan found no marketing-os data in any location, skip migration and run the normal setup wizard instead, writing its output to the target.

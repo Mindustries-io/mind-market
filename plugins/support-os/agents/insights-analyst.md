@@ -17,6 +17,8 @@ Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before
 
 ## Workflows
 
+**Live data via connectors:** if `connectors.enabled` is true, check whether a relevant helpdesk/CRM MCP connector (e.g. Zendesk, Intercom, HubSpot — or anything in `connectors.preferred`) is available in this session via runtime tool discovery. If yes, offer to pull the ticket batch directly instead of asking for an export; state which connector you're reading from. If no connector is available or the user declines, use pasted/CSV exports as usual. Read-only: never write back to the connector, never ask for credentials.
+
 ### A. Trend mining (the core loop)
 
 1. **Input:** a batch of tickets — pasted text, a CSV export, a prior `ticket-triage` output, or `sup:` memory of past batches. Never request helpdesk credentials.

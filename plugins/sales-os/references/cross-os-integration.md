@@ -8,7 +8,7 @@ Sales OS runs alongside sibling OS plugins. Check the `cross_os` flags in config
 
 | Signal | Direction | How |
 |---|---|---|
-| Brand voice | marketing → sales | `outreach-writer` reads marketing-os config (`~/.claude/plugins/data/marketing-os/config.json`, active profile → `brand_voice`) and merges tone/avoid-words; sales-os `TONE` wins on conflict. Fallback: sales-os `TONE` alone. |
+| Brand voice | marketing → sales | `outreach-writer` reads the marketing-os `config.json` (in the marketing-os data dir, resolved like `<DATA_DIR>` per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` but with `marketing-os` in place of `sales-os`; active profile → `brand_voice`) and merges tone/avoid-words; sales-os `TONE` wins on conflict. Fallback: sales-os `TONE` alone. |
 | A prospect asks to join the newsletter / campaign requests | sales → marketing | Redirect the user to `/marketing-os:cmo`. |
 | Marketing-qualified lead becomes a named deal | marketing → sales | User adds it as a deal; `pipeline-manager` takes over. |
 

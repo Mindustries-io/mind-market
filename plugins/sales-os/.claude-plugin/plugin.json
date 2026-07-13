@@ -1,7 +1,7 @@
 {
   "name": "sales-os",
   "description": "Sales Operating System for solopreneurs: a virtual Sales Director orchestrator with specialist agents for pipeline management, 1-to-1 outreach, proposals/quotes/SOWs, and CRM hygiene.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Mindustries",
     "url": "https://github.com/Mindustries-io"

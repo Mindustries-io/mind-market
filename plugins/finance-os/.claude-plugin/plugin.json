@@ -1,7 +1,7 @@
 {
   "name": "finance-os",
   "description": "Finance Operating System for solopreneurs — a virtual CFO orchestrator with specialist agents for bookkeeping and expense categorization, invoicing and late-payment chasing, 13-week cash-flow forecasting and runway, tax-deadline planning, and pricing analysis.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Mindustries",
     "url": "https://github.com/Mindustries-io"

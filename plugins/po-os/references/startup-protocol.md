@@ -2,9 +2,20 @@
 
 Follow these steps before starting any PO-OS task. Do not repeat them mid-task.
 
+## Data directory
+
+`<DATA_DIR>` (the PO-OS data directory) resolves in this order:
+
+1. If the `OS_HUB_DATA_DIR` environment variable is set → use `$OS_HUB_DATA_DIR/po-os/`.
+2. Else if `./os-data/po-os/` exists relative to the current working directory (Cowork: the user's connected folder) → use it.
+3. Else → `~/.claude/plugins/data/po-os/` (Claude Code default; unchanged for existing users).
+
+- **READ** (config.json, backlog index, discovery log): use the first location in that order where the file exists (for location 1, "env var set" is enough to select it).
+- **WRITE** (setup wizard writing config.json; data files like backlog/index.json, discovery-log.json): use the first WRITABLE location in the same order, creating directories as needed. In practice: env var if set, else `./os-data/po-os/` if the CWD is writable and the user is in a sandbox/Cowork-style session or `./os-data/` already exists, else the home path. When both 2 and 3 are plausible on WRITE and neither exists yet, prefer 3 (home) in Claude Code and 2 in sandboxed sessions where 3 is unreachable — the practical test is: try in order, first successful write wins.
+
 ## 1. Load configuration
 
-Read `~/.claude/plugins/data/po-os/config.json` and extract the `active_profile`.
+Read `<DATA_DIR>/config.json` (resolved per the Data directory section above) and extract the `active_profile`.
 
 **Graceful degradation — do NOT hard-stop if the config is missing or empty:**
 - Offer a 3-question inline quick-setup: (1) product name and one-line pitch, (2) primary
@@ -47,7 +58,7 @@ Never fail hard on a missing integration — always use the fallback.
 
 | Integration | Use | Fallback if unavailable |
 |---|---|---|
-| `gh` CLI (GitHub Issues) | Creating/reading backlog items | Append to `~/.claude/plugins/data/po-os/backlog/index.json` and show the draft |
+| `gh` CLI (GitHub Issues) | Creating/reading backlog items | Append to `<DATA_DIR>/backlog/index.json` and show the draft |
 | Web-scraping MCP server (e.g. an Apify-style RAG web browser) | Review/forum extraction | `WebSearch` + `WebFetch` on public pages |
 | Cloud drive / file MCP server | Reading VoC logs stored remotely | Ask the user to paste or export the log |
 | Memory MCP (claude-mem) | Cross-session product context | Proceed without memory |
@@ -55,3 +66,18 @@ Never fail hard on a missing integration — always use the fallback.
 
 For MCP servers, discover the exact tool names at runtime (ToolSearch or the tool list);
 never assume hardcoded tool IDs.
+
+## Upgrades and missing fields
+
+Configs written by older plugin versions stay valid: treat any missing field as its documented default — in particular, a missing `connectors` block means `{ "enabled": true, "preferred": [] }`. Never require the user to re-run setup after a plugin update; offer it only if they want to use new options.
+
+### Multiple data locations
+
+If more than one location in the resolution order contains `config.json`, use the highest-priority one but TELL the user which other locations also hold po-os data (absolute paths + last-modified) and suggest `/po-os:setup migrate` to consolidate — silent divergence between locations is worse than a one-line warning.
+
+### Empty but deliberately selected location
+
+An explicitly chosen location that is empty is a signal, not a fallthrough. If `OS_HUB_DATA_DIR` is set but `$OS_HUB_DATA_DIR/po-os/` has no `config.json`, or `./os-data/` exists but `./os-data/po-os/` is empty, do NOT silently fall back to a lower-priority location:
+
+- If a lower-priority location holds po-os data, say so and offer `/po-os:setup migrate` to bring it into the selected location (reading the old data for this session is fine, but say that is what you are doing).
+- If no location holds any data, offer setup — the 3-question quick version inline or the full `/po-os:setup` wizard — writing the result to the selected location.

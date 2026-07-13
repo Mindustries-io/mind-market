@@ -9,7 +9,8 @@ You are the **Setup Wizard** for the Product Owner Operating System. Your job is
 
 ## Configuration File
 
-All product profiles are stored in: `~/.claude/plugins/data/po-os/config.json`
+All product profiles are stored in: `<DATA_DIR>/config.json`
+(`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`)
 
 If this file doesn't exist, create it. If it exists, read it first to preserve existing profiles.
 
@@ -126,30 +127,34 @@ Ask the user:
 
 Store these flags; specialists read them to decide when to call sibling plugins.
 
-### Step 9: Write Configuration
+### Step 9: Connected Tools (optional)
 
-Create the data directory if needed:
+Ask: "Do you use any connected tools I should pull live data from? (optional, Enter to skip)". Store the answer as `connectors.enabled` (default `true`) and any named products in `connectors.preferred` (see `references/config-schema.md`).
+
+### Step 10: Write Configuration
+
+Resolve `<DATA_DIR>` per the Data directory section of the startup protocol, then create the data directory if needed:
 ```bash
-mkdir -p ~/.claude/plugins/data/po-os/backlog
+mkdir -p <DATA_DIR>/backlog
 ```
 
 Write `config.json` following the schema in `references/config-schema.md`.
 
-### Step 10: Initialize Data Files
+### Step 11: Initialize Data Files
 
 Create empty template files:
 
 ```json
-// ~/.claude/plugins/data/po-os/backlog/index.json
+// <DATA_DIR>/backlog/index.json
 { "items": [], "updated_at": "<today's ISO date>" }
 ```
 
 ```json
-// ~/.claude/plugins/data/po-os/discovery-log.json
+// <DATA_DIR>/discovery-log.json
 { "observations": [], "updated_at": "<today's ISO date>" }
 ```
 
-### Step 11: Confirmation
+### Step 12: Confirmation
 
 Display a summary of the configured profile in a clean table:
 
@@ -164,6 +169,8 @@ Display a summary of the configured profile in a clean table:
 | Backlog | {location} — {owner/repo} |
 | VoC sources | {enabled_count}/6 available |
 | Cross-OS | legal-os: {yes/no}, marketing-os: {yes/no} |
+
+State the absolute path of the data directory actually used (the resolved `<DATA_DIR>`). If it fell back to location 3 (the home path), add: "If you're running in Cowork, connect a business folder and re-run setup so your data lands in `./os-data/po-os/` inside it."
 
 Tell the user:
 - Run `/po-os:setup` again to modify settings or add another product profile
@@ -180,3 +187,19 @@ If the user already has profiles:
 ## Quick Edits
 
 If the user provides a specific argument (e.g., "add persona Italian SME", "add market FR", "enable legal-os integration"), skip the full wizard and make the targeted change to the active profile.
+
+## Migrating your data (`/po-os:setup migrate`)
+
+When invoked with `migrate` — or whenever the user asks to move, consolidate, or centralise their data:
+
+1. **Scan** all three resolution locations for po-os data files (config.json plus any data files listed in the schema/GUIDE). Report what exists where: absolute path, files found, last-modified dates.
+2. **Ask for the target**, recommending in this order:
+   - `$OS_HUB_DATA_DIR/po-os/` — best for "same data in every future session". Suggest pointing it at a synced folder (OneDrive, Dropbox, etc.) and remind the user to persist the variable in Claude Code `settings.json` under `"env"` so every future session sees it. In Cowork, connect that same synced folder and the `./os-data/` path resolves to the same data.
+   - `./os-data/po-os/` in the current working folder — right when this folder IS the business folder they connect in Cowork.
+   - `~/.claude/plugins/data/po-os/` — fine for single-machine, Claude Code-only use.
+3. **Copy** (never move yet) every data file to the target, creating directories as needed. On a name collision, keep the newer file and say so. List exactly what will be copied before doing it.
+4. **Verify** by reading `config.json` back from the target.
+5. Only after verification, **offer** to rename the originals with a `.migrated` suffix so future sessions resolve unambiguously. Never delete without an explicit yes.
+6. If the target is inside a git repository, remind the user to add `os-data/` to `.gitignore`.
+7. **Post-migration review:** walk through the migrated `config.json` and confirm anything vague — empty fields, fields introduced by newer plugin versions (e.g. `connectors`), or values that look stale (old dates, placeholder text, competitors/rates that may have changed). One short confirm-or-update question per flagged item; write the refreshed config to the new location.
+8. **Empty target, no source:** if the chosen target is empty and the scan found no po-os data in any location, skip migration and run the normal setup wizard instead, writing its output to the target.

@@ -34,9 +34,13 @@ A full-stack marketing operating system for Claude Code: one orchestrator skill 
 /marketing-os:setup
 ```
 
-The wizard captures: brand name and domain, **which integrations are connected (Ahrefs, claude-mem, nano-banana)**, competitors (auto-discovered from Ahrefs when connected, manual otherwise), target countries, active channels, brand voice, and reporting preferences. Config is saved to `~/.claude/plugins/data/marketing-os/config.json`; multiple brand profiles are supported.
+The wizard captures: brand name and domain, **which integrations are connected (Ahrefs, claude-mem, nano-banana)**, competitors (auto-discovered from Ahrefs when connected, manual otherwise), target countries, active channels, brand voice, and reporting preferences. Config is saved to `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`); multiple brand profiles are supported.
 
 No config yet? Agents don't hard-stop — they offer a 3-question inline quick-setup or proceed with the context you gave.
+
+#### Where your data lives
+
+Config and data files resolve in this order: `$OS_HUB_DATA_DIR/marketing-os/` if that environment variable is set, then `./os-data/marketing-os/` in your working directory, then `~/.claude/plugins/data/marketing-os/` (the Claude Code default). In Cowork, connect a business folder and your data lands in `./os-data/marketing-os/` inside it. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (finances, clients, tickets).
 
 ### 2. Talk to the CMO
 
@@ -87,7 +91,7 @@ Each agent declares a model tier in its frontmatter so routine work never burns 
 | brand-guardian | `sonnet` | medium | Scorecard-driven monitoring and voice review |
 | competitive-intel | `inherit` | high | Judgment-heavy strategic analysis; errors are costly |
 
-**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](https://github.com/Mindustries-io/mind-market#using-the-plugins-on-a-proxied-backend).
+**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](../../README.md#using-the-plugins-on-a-proxied-backend).
 
 ## Integrations (all optional)
 
@@ -101,6 +105,8 @@ Marketing OS names its MCP servers and discovers the exact tool names at runtime
 | **WebSearch** | — (built in) | Trends, news, competitor research, hashtag research | Always available |
 
 Reconnected an integration later? `/marketing-os:setup ahrefs is now connected` flips the flag.
+
+**Live data when connected, exports otherwise:** if a relevant connector (bank, payments, CRM, helpdesk, SEO...) is available as an MCP server in your session, agents will offer to read from it directly; otherwise everything works from pasted exports. Discovery is at runtime — nothing is configured, no credentials are stored, and you can disable it with `connectors.enabled: false` in your config.
 
 ## How conversations work
 
@@ -132,7 +138,7 @@ With claude-mem connected, findings persist across sessions: run keyword researc
 /marketing-os:setup change tone to casual
 ```
 
-Or edit `~/.claude/plugins/data/marketing-os/config.json` directly (`active_profile` selects the brand).
+Or edit `<DATA_DIR>/config.json` directly (`active_profile` selects the brand).
 
 ## Troubleshooting
 

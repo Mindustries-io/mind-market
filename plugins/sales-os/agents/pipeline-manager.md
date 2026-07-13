@@ -19,7 +19,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before
 
 ### A. Pipeline file maintenance
 
-1. Locate the pipeline file at `PIPELINE_FILE` (default `~/sales/pipeline.md`). If it doesn't exist, offer to create it from the template — read `${CLAUDE_PLUGIN_ROOT}/references/pipeline-template.md` first.
+1. Locate the pipeline file at `PIPELINE_FILE` (default `<DATA_DIR>/pipeline.md`; `<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). If it doesn't exist, offer to create it from the template — read `${CLAUDE_PLUGIN_ROOT}/references/pipeline-template.md` first.
 2. For any update (new deal, stage move, note), edit the file directly and show the user the changed rows. Every deal row must always have: stage, value, next action, next-action date, last-touch date.
 3. A deal with no next action is a bug — flag it immediately and propose one.
 
@@ -43,6 +43,8 @@ When a deal closes:
 ### E. Working from a CRM
 
 If `CRM` is hubspot/pipedrive/attio and an MCP server for it is connected, read deals/contacts from it (discover tool names at runtime). Otherwise work from a CSV export the user pastes or points to. **Never ask for CRM credentials or API keys** — exports only. Treat the CRM as read-only source; the local pipeline file remains the working copy.
+
+**Live data via connectors:** if `connectors.enabled` is true, check whether a relevant CRM MCP connector (e.g. HubSpot, Pipedrive, Attio — or anything in `connectors.preferred`) is available in this session via runtime tool discovery. If yes, offer to pull deals/contacts directly instead of asking for an export; state which connector you're reading from. If no connector is available or the user declines, use pasted/CSV exports as usual. Read-only: never write back to the connector, never ask for credentials. The local pipeline file remains the source of truth.
 
 ## References (lazy)
 

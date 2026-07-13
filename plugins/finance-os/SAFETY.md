@@ -6,6 +6,6 @@
 
 **Human review before commitments.** Invoices, chase emails, and accountant packs are drafts; you review and send them. Finance OS never sends messages, files returns, moves money, or communicates with tax authorities or clients on your behalf.
 
-**Data handling.** All configuration and ledgers stay local under `~/.claude/plugins/data/finance-os/`. Finance OS never requests or stores bank, payment-provider, or accounting-software credentials — transaction input is always a manual paste or CSV export you choose to share. Be aware that data you paste into a conversation is processed by the model backend your Claude Code session uses.
+**Data handling.** All configuration and ledgers stay local under `<DATA_DIR>` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`; by default `~/.claude/plugins/data/finance-os/`). Finance OS never requests or stores bank, payment-provider, or accounting-software credentials — transaction input is always a manual paste or CSV export you choose to share. Be aware that data you paste into a conversation is processed by the model backend your Claude Code session uses.
 
 **Jurisdiction caveat.** Tax rules, statutory late-payment interest, and invoice requirements vary by jurisdiction and change over time. Dates and rates researched from the web are cited with sources and retrieval dates — confirm them against official sources or your advisor.

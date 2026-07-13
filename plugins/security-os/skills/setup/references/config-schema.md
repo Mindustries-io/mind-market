@@ -1,7 +1,7 @@
 # Security OS Configuration Schema
 
 ## File Location
-`~/.claude/plugins/data/security-os/config.json`
+`<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). Example default location — location 3 of the resolution order: `~/.claude/plugins/data/security-os/config.json`
 
 ## Top Level
 
@@ -22,6 +22,7 @@
 | `crown_jewels` | string[] | yes | [] | 1-5 most critical data/systems |
 | `existing_controls` | object | no | - | Known controls (see below) |
 | `risk_appetite` | object | no | - | Risk thresholds (see below) |
+| `connectors` | object | no | - | MCP connector awareness (see below) |
 | `cross_os` | object | no | - | Sibling plugin flags (see below) |
 | `created_at` | string | no | - | ISO date of profile creation |
 | `updated_at` | string | no | - | ISO date of last update |
@@ -54,6 +55,20 @@
 |---|---|---|---|
 | `level` | string | "moderate" | "conservative", "moderate", "aggressive" |
 | `escalation_threshold` | string | "high" | Severity requiring explicit user decision: "medium", "high", "critical" |
+
+### Connectors Object
+
+```json
+"connectors": {
+  "enabled": true,
+  "preferred": []
+}
+```
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `enabled` | boolean | true | When false, agents never probe for MCP connectors and use exports only |
+| `preferred` | string[] | [] | Optional connector/product names to look for first |
 
 ### Cross-OS Object
 
@@ -89,6 +104,7 @@
         "monitoring": "vercel alerts only"
       },
       "risk_appetite": { "level": "moderate", "escalation_threshold": "high" },
+      "connectors": { "enabled": true, "preferred": [] },
       "cross_os": { "legal_os_installed": true },
       "created_at": "2026-07-09",
       "updated_at": "2026-07-09"

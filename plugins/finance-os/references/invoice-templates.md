@@ -63,7 +63,7 @@ After step 3: recommend a human decision — write-off, mediation, collections a
 
 ## Outstanding-Invoice Ledger
 
-Simple local ledger at `~/.claude/plugins/data/finance-os/invoices.json`:
+Simple local ledger at `<DATA_DIR>/invoices.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`):
 
 ```json
 {

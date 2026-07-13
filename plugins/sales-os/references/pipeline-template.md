@@ -1,6 +1,6 @@
 # Pipeline File Template
 
-The pipeline is a plain markdown file the user owns (default `~/sales/pipeline.md`). It is the single working copy; CRMs are read-only sources. Keep it small enough to read in one glance — a solopreneur rarely needs more than 15-25 open deals.
+The pipeline is a plain markdown file the user owns (default `<DATA_DIR>/pipeline.md`; `<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). It is the single working copy; CRMs are read-only sources. Keep it small enough to read in one glance — a solopreneur rarely needs more than 15-25 open deals.
 
 ## Structure
 

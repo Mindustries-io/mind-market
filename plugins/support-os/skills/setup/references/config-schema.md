@@ -2,7 +2,7 @@
 
 ## File location
 
-`~/.claude/plugins/data/support-os/config.json`
+`<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). The example default location is `~/.claude/plugins/data/support-os/config.json` — that is location 3 of the resolution order.
 
 ## Top level
 
@@ -25,6 +25,7 @@
 | `refund_policy` | RefundPolicy | yes | — | Policy summary and escalation threshold |
 | `escalation` | Escalation | no | see below | Decisions reserved for the user |
 | `kb` | Kb | no | `{}` | Help-center location and inventory |
+| `connectors` | Connectors | no | see below | Optional MCP connector awareness |
 | `cross_os` | CrossOS | yes | all `false` | Sibling plugin availability flags |
 | `created_at` / `updated_at` | string | no | — | ISO dates |
 
@@ -73,6 +74,20 @@
 | `location` | string | Help-center URL or repo path |
 | `inventory_path` | string | Optional local markdown file mirroring the article inventory |
 
+### Connectors
+
+```json
+"connectors": {
+  "enabled": true,
+  "preferred": []
+}
+```
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `enabled` | boolean | true | When false, agents never probe for MCP connectors and use exports only |
+| `preferred` | string[] | `[]` | Optional connector/product names to look for first (e.g. `["zendesk", "intercom"]`) |
+
 ### CrossOS
 
 | Field | Type | Default | Description |
@@ -108,6 +123,7 @@
         "user_decides": ["refunds above policy threshold", "legal threats", "security reports"]
       },
       "kb": { "location": "https://aurora.example.com/help", "inventory_path": "" },
+      "connectors": { "enabled": true, "preferred": [] },
       "cross_os": { "po_os": true, "marketing_os": true },
       "created_at": "2026-07-09",
       "updated_at": "2026-07-09"

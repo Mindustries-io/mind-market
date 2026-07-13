@@ -6,7 +6,7 @@ Support-OS runs alongside sibling OSs from the same family. Check the `cross_os`
 
 **Who:** `response-drafter`, `kb-writer`.
 
-**When `cross_os.marketing_os` is true:** read `~/.claude/plugins/data/marketing-os/config.json`, take the active brand's voice/tone settings (tone, vocabulary, do/don't lists), and use them for replies and articles. State the source: "Using marketing-os brand voice."
+**When `cross_os.marketing_os` is true:** read the marketing-os config at `<DATA_DIR>/../marketing-os/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`), take the active brand's voice/tone settings (tone, vocabulary, do/don't lists), and use them for replies and articles. State the source: "Using marketing-os brand voice."
 
 **Fallback (file missing, unparseable, or no voice fields):** use the `voice` section of the support-os config; if that's empty too, default to friendly-professional first-person and suggest `/support-os:setup`. Note the fallback in one line, then proceed.
 

@@ -22,5 +22,5 @@ Customer-signal syntheses disclose sample sizes and biases, but small samples, s
 
 ## Data handling
 
-- Configuration and data files stay local under `~/.claude/plugins/data/po-os/` — nothing is uploaded by the plugin itself.
+- Configuration and data files stay local under `<DATA_DIR>` (resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`; by default `~/.claude/plugins/data/po-os/`) — nothing is uploaded by the plugin itself.
 - VoC mining only uses publicly visible sources, respects platform terms of service, and strips personal data (names, emails, business specifics) from stored observations and backlog items.

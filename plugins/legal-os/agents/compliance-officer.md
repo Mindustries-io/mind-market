@@ -51,7 +51,9 @@ missing given the org profile (e.g. Data Processor obligations for a SaaS proces
 ### Compliance audit
 Per-framework completion rates → overdue obligations across all frameworks → evidence
 gaps → orphaned tasks (no parent obligation) → upcoming deadlines from
-`~/.claude/plugins/data/legal-os/regulatory-calendar.json` → consolidated audit report.
+`<DATA_DIR>/regulatory-calendar.json` (`<DATA_DIR>` = resolved per the Data directory
+section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`) → consolidated audit
+report.
 
 ### Compliance check for a proposed action
 If the `legal:compliance-check` skill is available, invoke it with org context

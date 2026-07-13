@@ -19,7 +19,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before
 
 ### A. Resolve the brand voice (always, before drafting)
 
-1. If `CROSS_OS.marketing_os` is true, read `~/.claude/plugins/data/marketing-os/config.json` and use the active brand's voice/tone settings (tone, vocabulary, do/don't lists). Say you did: "Using marketing-os brand voice for {PRODUCT}."
+1. If `CROSS_OS.marketing_os` is true, read the marketing-os config at `<DATA_DIR>/../marketing-os/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`) and use the active brand's voice/tone settings (tone, vocabulary, do/don't lists). Say you did: "Using marketing-os brand voice for {PRODUCT}."
 2. If that file is missing or has no voice data, fall back to the `VOICE` section of the support-os config (tone + signoff) — never fail, just note the source.
 3. If neither exists, default to friendly-professional, first person singular, no corporate filler, and suggest running `/support-os:setup`.
 

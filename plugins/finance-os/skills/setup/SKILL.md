@@ -5,7 +5,7 @@ description: "Finance OS configuration and onboarding. Use when the user asks to
 
 # Finance OS Setup Wizard
 
-You configure the business profile that every Finance OS agent relies on. Config lives at `~/.claude/plugins/data/finance-os/config.json` — read it first if it exists and preserve anything already set; create the directory and file if not.
+You configure the business profile that every Finance OS agent relies on. Config lives at `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`) — read it first if it exists and preserve anything already set; create the directory and file if not.
 
 Use AskUserQuestion for structured steps. If the user asked for one specific change ("add jurisdiction FR", "change payment terms to 14 days"), skip the wizard and make the targeted edit, then show the updated section.
 
@@ -48,19 +48,38 @@ Competitors/alternatives with pricing-page URLs, and a **max discount** percenta
 ### 8. Cross-OS Flags
 Which sibling OSs are installed: `legal_os` (jurisdiction conventions, escalation), `marketing_os`, `po_os`. Yes/no each; specialists fall back to native research when absent.
 
-### 9. Write Config & Initialize Data Files
-1. Create `~/.claude/plugins/data/finance-os/` if needed.
+### 9. Connectors (optional)
+"Do you use any connected tools I should pull live data from? (optional, Enter to skip)" — e.g. Qonto, Stripe. Store the answer in `connectors.preferred`; `connectors.enabled` defaults to true (set false to disable probing entirely). Exports/paste remain the default input either way.
+
+### 10. Write Config & Initialize Data Files
+1. Resolve the write location for `<DATA_DIR>` per the Data directory section of the startup protocol and create it if needed.
 2. Write `config.json` per `references/config-schema.md`.
 3. Initialize empty data files if absent:
    - `invoices.json` → `{ "invoices": [], "updated_at": "<today>" }`
    - `forecast.json` → `{ "assumptions": {}, "updated_at": "<today>" }`
 
-### 10. Confirm
-Show a summary table (business, currency, jurisdictions, VAT, recurring revenue/cost counts, payment terms, buffer, cross-OS flags). Then point the user at:
+### 11. Confirm
+Show a summary table (business, currency, jurisdictions, VAT, recurring revenue/cost counts, payment terms, buffer, cross-OS flags). State the absolute path actually used for `<DATA_DIR>`; if you fell back to location 3 (home), add: "If you're running in Cowork, connect a business folder and re-run setup so your data lands in `./os-data/finance-os/` inside it." Then point the user at:
 - `/finance-os:cfo` — main entry point
 - Direct specialists: `/finance-os:bookkeeper`, `/finance-os:invoicing`, `/finance-os:cashflow-forecaster`, `/finance-os:tax-planner`, `/finance-os:pricing-analyst`
 - Re-run `/finance-os:setup` anytime to change settings.
 
 ## Notes
-- Everything stays local under `~/.claude/plugins/data/finance-os/` — no credentials are ever requested or stored (payment details on invoices are the user's own public remittance info).
+- Everything stays local under `<DATA_DIR>/` — no credentials are ever requested or stored (payment details on invoices are the user's own public remittance info).
 - See `${CLAUDE_PLUGIN_ROOT}/SAFETY.md` for the standing disclaimer.
+
+## Migrating your data (`/finance-os:setup migrate`)
+
+When invoked with `migrate` — or whenever the user asks to move, consolidate, or centralise their data:
+
+1. **Scan** all three resolution locations for finance-os data files (config.json plus any data files listed in the schema/GUIDE). Report what exists where: absolute path, files found, last-modified dates.
+2. **Ask for the target**, recommending in this order:
+   - `$OS_HUB_DATA_DIR/finance-os/` — best for "same data in every future session". Suggest pointing it at a synced folder (OneDrive, Dropbox, etc.) and remind the user to persist the variable in Claude Code `settings.json` under `"env"` so every future session sees it. In Cowork, connect that same synced folder and the `./os-data/` path resolves to the same data.
+   - `./os-data/finance-os/` in the current working folder — right when this folder IS the business folder they connect in Cowork.
+   - `~/.claude/plugins/data/finance-os/` — fine for single-machine, Claude Code-only use.
+3. **Copy** (never move yet) every data file to the target, creating directories as needed. On a name collision, keep the newer file and say so. List exactly what will be copied before doing it.
+4. **Verify** by reading `config.json` back from the target.
+5. Only after verification, **offer** to rename the originals with a `.migrated` suffix so future sessions resolve unambiguously. Never delete without an explicit yes.
+6. If the target is inside a git repository, remind the user to add `os-data/` to `.gitignore`.
+7. **Post-migration review:** walk through the migrated `config.json` and confirm anything vague — empty fields, fields introduced by newer plugin versions (e.g. `connectors`), or values that look stale (old dates, placeholder text, competitors/rates that may have changed). One short confirm-or-update question per flagged item; write the refreshed config to the new location.
+8. **Empty target, no source:** if the chosen target is empty and the scan found no finance-os data in any location, skip migration and run the normal setup wizard instead, writing its output to the target.

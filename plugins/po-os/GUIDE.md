@@ -52,7 +52,7 @@ Specialist agents are tiered by the cost of being wrong:
 | `localization-po` | `sonnet` | `medium` | Playbook-driven jurisdictional mapping against curated DPA profiles and checklists. |
 | `discovery-voc` | `sonnet` | `medium` | Playbook-driven VoC synthesis: clustering, strength scoring, pattern reports. |
 
-**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](https://github.com/Mindustries-io/mind-market#using-the-plugins-on-a-proxied-backend).
+**Portability note:** Model aliases resolve on official Anthropic backends. If you run Claude Code against a proxy (LiteLLM, Ollama, Bedrock/Vertex), map the aliases via `ANTHROPIC_DEFAULT_HAIKU_MODEL` / `ANTHROPIC_DEFAULT_SONNET_MODEL` (etc.) or edit the agent frontmatter to `model: inherit`. The `effort` field is Anthropic-specific and is ignored elsewhere. Step-by-step proxy setup: see "Using the plugins on a proxied backend" in the [marketplace README](../../README.md#using-the-plugins-on-a-proxied-backend).
 
 ## Getting Started
 
@@ -66,7 +66,7 @@ Already installed if `po-os` appears in `~/.claude/settings.json` under `enabled
 /po-os:setup
 ```
 
-Walk through 11 steps covering product basics, personas, markets, frameworks, competitors, backlog home, DoR, VoC sources, prioritization weights, and cross-OS integration. Output: `~/.claude/plugins/data/po-os/config.json`.
+Walk through 12 steps covering product basics, personas, markets, frameworks, competitors, backlog home, DoR, VoC sources, prioritization weights, cross-OS integration, and optional connected tools. Output: `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`; see "Data Directory" below).
 
 **No config yet?** PO-OS won't hard-stop. Any agent will offer a 3-question inline quick-setup (product, markets, frameworks) or proceed with whatever context you gave, noting reduced personalization.
 
@@ -128,7 +128,7 @@ PO-OS never fails hard on a missing integration (details in `references/startup-
 | claude-mem MCP | Cross-session memory (`po:` prefix) | Proceed without memory |
 | `legal-os` / `marketing-os` | Shared regulatory & market intel | Native web research |
 
-MCP tool names are discovered at runtime — nothing is hardcoded.
+MCP tool names are discovered at runtime — nothing is hardcoded. PO-OS's optional integrations follow the same discover-at-runtime rule: if a relevant connector is available as an MCP server in your session, agents may offer to read from it — nothing is configured, no credentials are stored, and you can disable probing with `connectors.enabled: false` in your config.
 
 ## Cross-OS Integration
 
@@ -174,11 +174,13 @@ Configure in setup step 8 — specialists check `cross_os.legal_os` / `cross_os.
 
 ## Data Directory
 
-- `~/.claude/plugins/data/po-os/config.json` — product profile (schema: `skills/setup/references/config-schema.md`)
-- `~/.claude/plugins/data/po-os/backlog/index.json` — local backlog cache
-- `~/.claude/plugins/data/po-os/discovery-log.json` — VoC observation append-log
+- `<DATA_DIR>/config.json` — product profile (schema: `skills/setup/references/config-schema.md`)
+- `<DATA_DIR>/backlog/index.json` — local backlog cache
+- `<DATA_DIR>/discovery-log.json` — VoC observation append-log
 
-All data stays local under `~/.claude`.
+### Where your data lives
+
+`<DATA_DIR>` resolves in order: (1) `$OS_HUB_DATA_DIR/po-os/` if the `OS_HUB_DATA_DIR` environment variable is set, (2) `./os-data/po-os/` in your current working folder if it exists, (3) `~/.claude/plugins/data/po-os/` — the Claude Code default. In Cowork, connect a business folder and your data lands in `./os-data/po-os/` inside it. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (finances, clients, tickets). All data stays local.
 
 ## Reference Library (lazy-loaded)
 
