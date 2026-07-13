@@ -59,7 +59,7 @@ Which sibling OSs are installed: `legal_os` (jurisdiction conventions, escalatio
    - `forecast.json` → `{ "assumptions": {}, "updated_at": "<today>" }`
 
 ### 11. Confirm
-Show a summary table (business, currency, jurisdictions, VAT, recurring revenue/cost counts, payment terms, buffer, cross-OS flags). State the absolute path actually used for `<DATA_DIR>`; if you fell back to location 3 (home), add: "If you're running in Cowork, connect a business folder and re-run setup so your data lands in `./os-data/finance-os/` inside it." Then point the user at:
+Show a summary table (business, currency, jurisdictions, VAT, recurring revenue/cost counts, payment terms, buffer, cross-OS flags). State the absolute path actually used for `<DATA_DIR>`; if you fell back to location 3 (home), add: "If you're running in Cowork, connect a business folder and re-run setup — approve creating `os-data/` inside it, since location 2 is only selected once `./os-data/` exists; your data then lands in `./os-data/finance-os/`." When setup re-runs inside a connected folder, offer to create `./os-data/` before writing so location 2 is deliberately selected. Then point the user at:
 - `/finance-os:cfo` — main entry point
 - Direct specialists: `/finance-os:bookkeeper`, `/finance-os:invoicing`, `/finance-os:cashflow-forecaster`, `/finance-os:tax-planner`, `/finance-os:pricing-analyst`
 - Re-run `/finance-os:setup` anytime to change settings.

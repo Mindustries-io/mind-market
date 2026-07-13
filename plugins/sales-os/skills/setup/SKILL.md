@@ -29,7 +29,7 @@ You configure Sales OS for a one-person business. Config lives at `<DATA_DIR>/co
 
 1. Write the config to `<DATA_DIR>/config.json` with `created_at`/`updated_at` (ISO dates) and set `active_profile`.
 2. Offer to create the pipeline file from `${CLAUDE_PLUGIN_ROOT}/references/pipeline-template.md` if it doesn't exist.
-3. Show a 5-line summary, **stating the absolute path where the config was actually written**. If it fell back to location 3 (the home path), add: "If you're running in Cowork, connect a business folder and re-run setup so your data lands in `./os-data/sales-os/` inside it." Then suggest a first command: `/sales-os:sales-director pipeline review`.
+3. Show a 5-line summary, **stating the absolute path where the config was actually written**. If it fell back to location 3 (the home path), add: "If you're running in Cowork, connect a business folder and re-run setup — approve creating `os-data/` inside it, since location 2 is only selected once `./os-data/` exists; your data then lands in `./os-data/sales-os/`." When setup re-runs inside a connected folder, offer to create `./os-data/` before writing so location 2 is deliberately selected. Then suggest a first command: `/sales-os:sales-director pipeline review`.
 
 Multiple profiles are supported (`profiles` map keyed by slug); `setup <name>` adds a profile, `setup switch to <name>` changes `active_profile`.
 

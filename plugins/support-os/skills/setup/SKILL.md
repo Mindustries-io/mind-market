@@ -34,7 +34,7 @@ Build the JSON per `references/config-schema.md`, show it to the user for confir
 
 ### 4. Wrap up
 
-In the final confirmation, state the absolute path the config was actually written to. If it fell back to location 3 (the home directory), add: "If you're running in Cowork, connect a business folder and re-run setup so your data lands in `./os-data/support-os/` inside it."
+In the final confirmation, state the absolute path the config was actually written to. If it fell back to location 3 (the home directory), add: "If you're running in Cowork, connect a business folder and re-run setup — approve creating `os-data/` inside it, since location 2 is only selected once `./os-data/` exists; your data then lands in `./os-data/support-os/`." When setup re-runs inside a connected folder, offer to create `./os-data/` before writing so location 2 is deliberately selected.
 
 Confirm what was saved and suggest a first task: "Paste a few recent tickets and ask me to triage them, or say 'reply to this customer' with an email."
 

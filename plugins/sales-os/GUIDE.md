@@ -20,7 +20,7 @@ Config is saved to `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Dat
 
 ### Where your data lives
 
-Your config and data files live in `<DATA_DIR>`, resolved in this order: `$OS_HUB_DATA_DIR/sales-os/` if that environment variable is set → `./os-data/sales-os/` in your working folder if it exists → `~/.claude/plugins/data/sales-os/` (the Claude Code default). In Cowork, connect a business folder so your data lands in `./os-data/sales-os/` inside it. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (deals, prospects, win/loss history).
+Your config and data files live in `<DATA_DIR>`, resolved in this order: `$OS_HUB_DATA_DIR/sales-os/` if that environment variable is set → `./os-data/sales-os/` when `./os-data/` exists in your working folder (the per-OS subfolder is created as needed) → `~/.claude/plugins/data/sales-os/` (the Claude Code default). In Cowork, connect a business folder and create an `os-data/` folder inside it (setup and migrate offer to do this) — your data then lands in `./os-data/sales-os/`. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (deals, prospects, win/loss history).
 
 ### 2. Talk to the Sales Director
 

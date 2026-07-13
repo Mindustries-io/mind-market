@@ -170,7 +170,7 @@ Display a summary of the configured profile in a clean table:
 | VoC sources | {enabled_count}/6 available |
 | Cross-OS | legal-os: {yes/no}, marketing-os: {yes/no} |
 
-State the absolute path of the data directory actually used (the resolved `<DATA_DIR>`). If it fell back to location 3 (the home path), add: "If you're running in Cowork, connect a business folder and re-run setup so your data lands in `./os-data/po-os/` inside it."
+State the absolute path of the data directory actually used (the resolved `<DATA_DIR>`). If it fell back to location 3 (the home path), add: "If you're running in Cowork, connect a business folder and re-run setup — approve creating `os-data/` inside it, since location 2 is only selected once `./os-data/` exists; your data then lands in `./os-data/po-os/`." When setup re-runs inside a connected folder, offer to create `./os-data/` before writing so location 2 is deliberately selected.
 
 Tell the user:
 - Run `/po-os:setup` again to modify settings or add another product profile

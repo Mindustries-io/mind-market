@@ -148,7 +148,7 @@ Write `config.json` with this structure:
 
 ### Step 9: Confirmation
 
-Display a summary of the configured profile in a clean table format. State the absolute path where the config was actually written. If it fell back to location 3 (the home path), add: "If you're running in Cowork, connect a business folder and re-run setup so your data lands in `./os-data/marketing-os/` inside it." Tell the user:
+Display a summary of the configured profile in a clean table format. State the absolute path where the config was actually written. If it fell back to location 3 (the home path), add: "If you're running in Cowork, connect a business folder and re-run setup — approve creating `os-data/` inside it, since location 2 is only selected once `./os-data/` exists; your data then lands in `./os-data/marketing-os/`." When setup re-runs inside a connected folder, offer to create `./os-data/` before writing so location 2 is deliberately selected. Tell the user:
 - They can run `/marketing-os:setup` again to modify settings or add another brand
 - They can now use `/marketing-os:cmo` to start working
 - All specialist agents are available directly via `/marketing-os:<specialist-name>`

@@ -180,7 +180,7 @@ Configure in setup step 8 — specialists check `cross_os.legal_os` / `cross_os.
 
 ### Where your data lives
 
-`<DATA_DIR>` resolves in order: (1) `$OS_HUB_DATA_DIR/po-os/` if the `OS_HUB_DATA_DIR` environment variable is set, (2) `./os-data/po-os/` in your current working folder if it exists, (3) `~/.claude/plugins/data/po-os/` — the Claude Code default. In Cowork, connect a business folder and your data lands in `./os-data/po-os/` inside it. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (backlog items, discovery logs, customer signals). All data stays local.
+`<DATA_DIR>` resolves in order: (1) `$OS_HUB_DATA_DIR/po-os/` if the `OS_HUB_DATA_DIR` environment variable is set, (2) `./os-data/po-os/` when `./os-data/` exists in your working folder (the per-OS subfolder is created as needed), (3) `~/.claude/plugins/data/po-os/` — the Claude Code default. In Cowork, connect a business folder and create an `os-data/` folder inside it (setup and migrate offer to do this) — your data then lands in `./os-data/po-os/`. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (backlog items, discovery logs, customer signals). All data stays local.
 
 ## Reference Library (lazy-loaded)
 

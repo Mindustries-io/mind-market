@@ -40,7 +40,7 @@ No config yet? Agents don't hard-stop — they offer a 3-question inline quick-s
 
 #### Where your data lives
 
-Config and data files resolve in this order: `$OS_HUB_DATA_DIR/marketing-os/` if that environment variable is set, then `./os-data/marketing-os/` in your working directory, then `~/.claude/plugins/data/marketing-os/` (the Claude Code default). In Cowork, connect a business folder and your data lands in `./os-data/marketing-os/` inside it. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (brand strategy, competitor analysis, campaign data).
+Config and data files resolve in this order: `$OS_HUB_DATA_DIR/marketing-os/` if that environment variable is set, then `./os-data/marketing-os/` when `./os-data/` exists in your working folder (the per-OS subfolder is created as needed), then `~/.claude/plugins/data/marketing-os/` (the Claude Code default). In Cowork, connect a business folder and create an `os-data/` folder inside it (setup and migrate offer to do this) — your data then lands in `./os-data/marketing-os/`. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (brand strategy, competitor analysis, campaign data).
 
 ### 2. Talk to the CMO
 

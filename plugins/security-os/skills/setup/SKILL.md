@@ -37,7 +37,7 @@ Ask in conversational batches (2-3 questions at a time), not a 20-question form.
 
 1. Read the existing config first (if any) and merge — never clobber other profiles.
 2. Resolve the write location per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`, create the directory if needed, write JSON matching the schema, set `created_at`/`updated_at` (ISO dates), set `active_profile`.
-3. Show the user the resulting JSON and confirm, stating the absolute path actually used. If the config fell back to location 3 (home), add: "If you're running in Cowork, connect a business folder and re-run setup so your data lands in `./os-data/security-os/` inside it."
+3. Show the user the resulting JSON and confirm, stating the absolute path actually used. If the config fell back to location 3 (home), add: "If you're running in Cowork, connect a business folder and re-run setup — approve creating `os-data/` inside it, since location 2 is only selected once `./os-data/` exists; your data then lands in `./os-data/security-os/`." When setup re-runs inside a connected folder, offer to create `./os-data/` before writing so location 2 is deliberately selected.
 
 ## After setup
 

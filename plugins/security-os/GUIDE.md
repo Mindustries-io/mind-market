@@ -15,7 +15,7 @@ Configuration lives at `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the
 
 ### Where your data lives
 
-Security OS resolves its data directory in this order: `$OS_HUB_DATA_DIR/security-os/` if the `OS_HUB_DATA_DIR` environment variable is set; else `./os-data/security-os/` in your current working folder; else `~/.claude/plugins/data/security-os/` (the Claude Code default). In Cowork, connect a business folder so your config lands in `./os-data/security-os/` inside it. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (org profile, stack inventory, crown-jewel list).
+Security OS resolves its data directory in this order: `$OS_HUB_DATA_DIR/security-os/` if the `OS_HUB_DATA_DIR` environment variable is set; else `./os-data/security-os/` when `./os-data/` exists in your working folder (the per-OS subfolder is created as needed); else `~/.claude/plugins/data/security-os/` (the Claude Code default). In Cowork, connect a business folder and create an `os-data/` folder inside it (setup and migrate offer to do this) — your data then lands in `./os-data/security-os/`. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (org profile, stack inventory, crown-jewel list).
 
 ## Architecture
 

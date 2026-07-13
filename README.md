@@ -39,7 +39,7 @@ Each plugin follows the same shape:
 Every OS resolves its data directory (config, ledgers, logs) in this order:
 
 1. `$OS_HUB_DATA_DIR/<os>/` — if the `OS_HUB_DATA_DIR` environment variable is set.
-2. `./os-data/<os>/` — relative to the working directory. This is the Cowork path: connect a business folder to your session and data lands inside it.
+2. `./os-data/<os>/` — selected when an `os-data/` folder exists in the working directory; the per-OS subfolder is created automatically. This is the Cowork path: connect a business folder and create `os-data/` inside it (setup and migrate offer to do this) — data then lands inside it. Merely connecting a folder without an `os-data/` directory falls back to location 3.
 3. `~/.claude/plugins/data/<os>/` — the Claude Code default (unchanged for existing users).
 
 The OS first *selects* the active location — 1 if `OS_HUB_DATA_DIR` is set, else 2 if `./os-data/` exists in the working folder, else 3 — and reads and writes there, creating directories as needed. A deliberately selected location (1 or 2) that turns out to be empty is never silently skipped in favor of old data elsewhere: the OS offers to migrate your existing data in, or runs setup fresh (see below). **If your working folder is a git repository, add `os-data/` to its `.gitignore`** — it will contain business data (finances, clients, tickets).

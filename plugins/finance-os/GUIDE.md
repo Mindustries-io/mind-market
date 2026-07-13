@@ -63,7 +63,7 @@ Everything lives locally under `<DATA_DIR>` (`<DATA_DIR>` = resolved per the Dat
 
 ### Where your data lives
 
-Finance OS resolves its data directory in this order: `$OS_HUB_DATA_DIR/finance-os/` if the environment variable is set; else `./os-data/finance-os/` in your working folder if it exists; else `~/.claude/plugins/data/finance-os/` (the Claude Code default). In Cowork, connect a business folder so your data lands in `./os-data/finance-os/` inside it. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (invoices, transactions, cash-flow forecasts).
+Finance OS resolves its data directory in this order: `$OS_HUB_DATA_DIR/finance-os/` if the environment variable is set; else `./os-data/finance-os/` when `./os-data/` exists in your working folder (the per-OS subfolder is created as needed); else `~/.claude/plugins/data/finance-os/` (the Claude Code default). In Cowork, connect a business folder and create an `os-data/` folder inside it (setup and migrate offer to do this) — your data then lands in `./os-data/finance-os/`. If your working folder is a git repository, add `os-data/` to its `.gitignore` — it will contain business data (invoices, transactions, cash-flow forecasts).
 
 Integrations and fallbacks — nothing fails hard:
 
