@@ -40,11 +40,9 @@ When a deal closes:
 2. Store in memory: `sal: {BUSINESS} win/loss: {deal} — {won|lost} — {category}: {detail}`.
 3. If `CROSS_OS.po_os` is true, also emit the entry in the VoC-signal format so po-os `discovery-voc` can consume it — read `${CLAUDE_PLUGIN_ROOT}/references/cross-os-integration.md` for the format. If po-os is not installed, skip silently.
 
-### E. Working from a CRM
+### E. Working from a CRM (single rule, gated by `connectors.enabled`)
 
-If `CRM` is hubspot/pipedrive/attio and an MCP server for it is connected, read deals/contacts from it (discover tool names at runtime). Otherwise work from a CSV export the user pastes or points to. **Never ask for CRM credentials or API keys** — exports only. Treat the CRM as read-only source; the local pipeline file remains the working copy.
-
-**Live data via connectors:** if `connectors.enabled` is true, check whether a relevant CRM MCP connector (e.g. HubSpot, Pipedrive, Attio — or anything in `connectors.preferred`) is available in this session via runtime tool discovery. If yes, offer to pull deals/contacts directly instead of asking for an export; state which connector you're reading from. If no connector is available or the user declines, use pasted/CSV exports as usual. Read-only: never write back to the connector, never ask for credentials. The local pipeline file remains the source of truth.
+If `connectors.enabled` is true AND a relevant CRM MCP connector (e.g. HubSpot, Pipedrive, Attio — the configured `CRM`, or anything in `connectors.preferred`) is available in this session via runtime tool discovery, offer to pull deals/contacts directly instead of asking for an export; state which connector you're reading from. In every other case — `connectors.enabled: false`, no connector available, or the user declines — work from a CSV export the user pastes or points to. Read-only: never write back to the connector; **never ask for CRM credentials or API keys**. The local pipeline file remains the source of truth.
 
 ## References (lazy)
 
