@@ -10,7 +10,7 @@ Every Marketing OS agent and skill follows this protocol once at the start of a 
 2. Else if `./os-data/marketing-os/` exists relative to the current working directory (Cowork: the user's connected folder) → use it.
 3. Else → `~/.claude/plugins/data/marketing-os/` (Claude Code default; unchanged for existing users).
 
-- **READ** (config.json, snapshots): use the first location in that order where the file exists (for location 1, "env var set" is enough to select it).
+- **READ** (config.json, snapshots): first SELECT the active location — 1 if `OS_HUB_DATA_DIR` is set, else 2 if `./os-data/` exists in the working directory, else 3 — and read from it. If a deliberately selected location (1 or 2) contains no `config.json`, do NOT silently fall back — apply the "Empty but deliberately selected location" section below. If location 3 is selected and empty, offer the quick setup per the configuration-load step.
 - **WRITE** (setup wizard writing config.json; data files): use the first WRITABLE location in the same order, creating directories as needed. In practice: env var if set, else `./os-data/marketing-os/` if the CWD is writable and the user is in a sandbox/Cowork-style session or `./os-data/` already exists, else the home path. When both 2 and 3 are plausible on WRITE and neither exists yet, prefer 3 (home) in Claude Code and 2 in sandboxed sessions where 3 is unreachable — the practical test is: try in order, first successful write wins.
 
 ## 1. Load configuration

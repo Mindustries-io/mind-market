@@ -62,6 +62,8 @@
 | `stale_after_days` | number | 14 |
 | `review_day` | string | "monday" |
 
+`file_path` may contain the literal token `<DATA_DIR>` — it is a **placeholder, not a real path**. Agents must substitute the resolved data directory (per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`) before any read or write. Keeping the token in the stored config (recommended default) means the path stays correct after a data migration; a user may instead store an absolute path, which is used verbatim.
+
 ### outreach
 
 | Field | Type | Default |

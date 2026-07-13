@@ -19,7 +19,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before
 
 ### A. Pipeline file maintenance
 
-1. Locate the pipeline file at `PIPELINE_FILE` (default `<DATA_DIR>/pipeline.md`; `<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). If it doesn't exist, offer to create it from the template — read `${CLAUDE_PLUGIN_ROOT}/references/pipeline-template.md` first.
+1. Locate the pipeline file at `PIPELINE_FILE` (default `<DATA_DIR>/pipeline.md`; `<DATA_DIR>` = resolved per the Data directory section of `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). If the configured value contains the literal token `<DATA_DIR>`, substitute the resolved data directory before any read or write — never treat the token as a real path. If the file doesn't exist, offer to create it from the template — read `${CLAUDE_PLUGIN_ROOT}/references/pipeline-template.md` first.
 2. For any update (new deal, stage move, note), edit the file directly and show the user the changed rows. Every deal row must always have: stage, value, next action, next-action date, last-touch date.
 3. A deal with no next action is a bug — flag it immediately and propose one.
 
