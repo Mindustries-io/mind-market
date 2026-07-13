@@ -7,7 +7,7 @@ Every Finance OS agent and skill follows these steps before doing any task.
 `<DATA_DIR>` — the Finance OS data directory — resolves in this order:
 
 1. If the `OS_HUB_DATA_DIR` environment variable is set → use `$OS_HUB_DATA_DIR/finance-os/`.
-2. Else if `./os-data/finance-os/` exists relative to the current working directory (Cowork: the user's connected folder) → use it.
+2. Else if `./os-data/` exists relative to the current working directory (Cowork: the user's connected folder) → use `./os-data/finance-os/` inside it, creating the subdirectory if needed.
 3. Else → `~/.claude/plugins/data/finance-os/` (Claude Code default; unchanged for existing users).
 
 - **READ** (config.json, ledgers, snapshots): first SELECT the active location — 1 if `OS_HUB_DATA_DIR` is set, else 2 if `./os-data/` exists in the working directory, else 3 — and read from it. If a deliberately selected location (1 or 2) contains no `config.json`, do NOT silently fall back — apply the "Empty but deliberately selected location" section below. If location 3 is selected and empty, offer the quick setup per the configuration-load step.

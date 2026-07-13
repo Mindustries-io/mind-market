@@ -7,8 +7,7 @@ Follow these steps before starting any Legal OS task. Do not repeat them mid-tas
 Wherever Legal OS files say `<DATA_DIR>`, resolve it in this order:
 
 1. If the `OS_HUB_DATA_DIR` environment variable is set → use `$OS_HUB_DATA_DIR/legal-os/`.
-2. Else if `./os-data/legal-os/` exists relative to the current working directory
-   (Cowork: the user's connected folder) → use it.
+2. Else if `./os-data/` exists relative to the current working directory (Cowork: the user's connected folder) → use `./os-data/legal-os/` inside it, creating the subdirectory if needed.
 3. Else → `~/.claude/plugins/data/legal-os/` (Claude Code default; unchanged for
    existing users).
 

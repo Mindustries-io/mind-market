@@ -18,7 +18,7 @@ You configure Sales OS for a one-person business. Config lives at `<DATA_DIR>/co
 1. **Business & offer** — business name; services/products sold (name + one-line description each); positioning sentence ("I help X do Y").
 2. **Pricing & rates** — currency; rate per service (hourly / daily / fixed / retainer); minimum engagement value; discount floor if any.
 3. **ICP (ideal customer profile)** — who buys: industries, company size, buyer roles, geographies; red flags that disqualify a prospect.
-4. **Pipeline** — stages (default: `lead → contacted → qualified → proposal → negotiation → won/lost`); pipeline file path (default `<DATA_DIR>/pipeline.md`); stale threshold in days (default 14); weekly review day (default monday).
+4. **Pipeline** — stages (default: `lead → contacted → qualified → proposal → negotiation → won/lost`); pipeline file path (default `<DATA_DIR>/pipeline.md` — store the literal `<DATA_DIR>` token in the config, not the resolved path, so the path survives data migrations; agents substitute it at runtime per the schema); stale threshold in days (default 14); weekly review day (default monday).
 5. **Outreach** — tone (e.g. professional / friendly-direct / casual); sign-off; channels (email, LinkedIn, other); daily send cap; do-not-contact list (emails/domains).
 6. **Proposals** — standard terms (payment terms, revision rounds, validity days); default tier count (default 3); anything always out of scope.
 7. **CRM situation** — none / spreadsheet / HubSpot / Pipedrive / Attio; if a CRM: note that Sales OS works from exports or a read-only MCP server, never credentials.
