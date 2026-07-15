@@ -5,6 +5,10 @@ description: Build or refresh the delivery department scorecard — CSAT, delive
 
 # Delivery Scorecard
 
+## Startup
+
+Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before any task: resolve `<DATA_DIR>`, load `config.json` (offering the inline quick-setup if missing), and honour the data-sensitivity rules. Persist outputs to `<DATA_DIR>` (`scorecard.json` / `adp/<account>.md`) as well as presenting them.
+
 Produce the operating scorecard for a services delivery organization. It is both a management instrument (weekly/monthly review) and the evidence base for exec and board reporting — so numbers must be traceable to their source, and judgements must be separated from data.
 
 ## The five core metrics

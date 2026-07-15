@@ -14,10 +14,16 @@ Both skills work from data you provide (pasted exports, spreadsheets, or files i
 folder) and never require credentials. When a project-management or CRM connector is available
 in the session, the skills may offer to pull live data instead — exports remain the fallback.
 
-Data note: scorecards and ADPs contain client-confidential information. Store outputs in the
-folder or drive that belongs to the organization the data describes, and add `os-data/` to
-`.gitignore` if your working folder is a git repository.
+Configuration and data resolve per the shared convention: `$OS_HUB_DATA_DIR/delivery-os/` if
+that environment variable is set → `./os-data/delivery-os/` when `./os-data/` exists in your
+working folder (Cowork: your connected folder or drive) → `~/.claude/plugins/data/delivery-os/`
+(Claude Code default). Run `/delivery-os:setup` once to create the profile (org, account tiers,
+KPI targets, cadence).
+
+Data note: scorecards and ADPs contain client-confidential information. Keep the data directory
+in the folder or drive of the organization the data describes — never mix organizations — and
+add `os-data/` to `.gitignore` if your working folder is a git repository.
 
 Unlike the other OSs in this marketplace, delivery-os is skills-only (no orchestrator agent):
 both workflows are single-threaded by design and invoked directly with `/delivery-os:delivery-scorecard`
-and `/delivery-os:adp-generator`.
+and `/delivery-os:adp-generator`; `/delivery-os:setup` handles configuration and migration.
