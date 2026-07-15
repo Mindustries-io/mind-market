@@ -1,127 +1,144 @@
 {
-  "name": "mindustries-os-hub",
-  "owner": {
-    "name": "Mindustries",
-    "url": "https://github.com/Mindustries-io"
+ "name": "mindustries-os-hub",
+ "owner": {
+  "name": "Mindustries",
+  "url": "https://github.com/Mindustries-io"
+ },
+ "version": "2.2.0",
+ "description": "Agentic Operating Systems for solopreneurs \u2014 orchestrator + specialist agent teams for marketing, legal, product, security, finance, sales, and support.",
+ "plugins": [
+  {
+   "name": "legal-os",
+   "source": "./plugins/legal-os",
+   "version": "1.2.0",
+   "displayName": "Legal OS",
+   "description": "General Counsel orchestrator with specialists for compliance, GDPR/data protection, contracts, regulatory intelligence, incident response, vendor risk, and legal research.",
+   "keywords": [
+    "legal",
+    "compliance",
+    "gdpr",
+    "contracts",
+    "privacy",
+    "solopreneur"
+   ],
+   "license": "MIT",
+   "repository": "https://github.com/Mindustries-io/mind-market"
   },
-  "version": "2.1.0",
-  "description": "Agentic Operating Systems for solopreneurs — orchestrator + specialist agent teams for marketing, legal, product, security, finance, sales, and support.",
-  "plugins": [
-    {
-      "name": "legal-os",
-      "source": "./plugins/legal-os",
-      "version": "1.2.0",
-      "displayName": "Legal OS",
-      "description": "General Counsel orchestrator with specialists for compliance, GDPR/data protection, contracts, regulatory intelligence, incident response, vendor risk, and legal research.",
-      "keywords": [
-        "legal",
-        "compliance",
-        "gdpr",
-        "contracts",
-        "privacy",
-        "solopreneur"
-      ],
-      "license": "MIT",
-      "repository": "https://github.com/Mindustries-io/mind-market"
-    },
-    {
-      "name": "marketing-os",
-      "source": "./plugins/marketing-os",
-      "version": "1.2.0",
-      "displayName": "Marketing OS",
-      "description": "CMO orchestrator with specialists for SEO, content, email, social media, competitive intelligence, analytics, and brand monitoring.",
-      "keywords": [
-        "marketing",
-        "seo",
-        "content",
-        "email",
-        "social-media",
-        "solopreneur"
-      ],
-      "license": "MIT",
-      "repository": "https://github.com/Mindustries-io/mind-market"
-    },
-    {
-      "name": "po-os",
-      "source": "./plugins/po-os",
-      "version": "1.2.0",
-      "displayName": "Product Owner OS",
-      "description": "Lead PO orchestrator with specialists for regulatory-driven features, jurisdictional localization, and voice-of-customer discovery.",
-      "keywords": [
-        "product",
-        "backlog",
-        "roadmap",
-        "voice-of-customer",
-        "solopreneur"
-      ],
-      "license": "MIT",
-      "repository": "https://github.com/Mindustries-io/mind-market"
-    },
-    {
-      "name": "security-os",
-      "source": "./plugins/security-os",
-      "version": "1.1.0",
-      "displayName": "Security OS",
-      "description": "vCISO orchestrator with specialists for application security review, threat modeling, infrastructure hardening, vendor security, and security incident response.",
-      "keywords": [
-        "security",
-        "appsec",
-        "threat-modeling",
-        "hardening",
-        "solopreneur"
-      ],
-      "license": "MIT",
-      "repository": "https://github.com/Mindustries-io/mind-market"
-    },
-    {
-      "name": "finance-os",
-      "source": "./plugins/finance-os",
-      "version": "1.1.0",
-      "displayName": "Finance OS",
-      "description": "CFO orchestrator with specialists for bookkeeping, invoicing and collections, cash-flow forecasting, tax deadline planning, and pricing analysis.",
-      "keywords": [
-        "finance",
-        "bookkeeping",
-        "invoicing",
-        "cashflow",
-        "pricing",
-        "solopreneur"
-      ],
-      "license": "MIT",
-      "repository": "https://github.com/Mindustries-io/mind-market"
-    },
-    {
-      "name": "sales-os",
-      "source": "./plugins/sales-os",
-      "version": "1.1.0",
-      "displayName": "Sales OS",
-      "description": "Sales Director orchestrator with specialists for pipeline management, 1-to-1 outreach, proposal drafting, and CRM hygiene.",
-      "keywords": [
-        "sales",
-        "pipeline",
-        "outreach",
-        "proposals",
-        "crm",
-        "solopreneur"
-      ],
-      "license": "MIT",
-      "repository": "https://github.com/Mindustries-io/mind-market"
-    },
-    {
-      "name": "support-os",
-      "source": "./plugins/support-os",
-      "version": "1.1.0",
-      "displayName": "Support OS",
-      "description": "Support Lead orchestrator with specialists for ticket triage, response drafting, knowledge-base authoring, and support insights that feed product discovery.",
-      "keywords": [
-        "support",
-        "customer-service",
-        "helpdesk",
-        "knowledge-base",
-        "solopreneur"
-      ],
-      "license": "MIT",
-      "repository": "https://github.com/Mindustries-io/mind-market"
-    }
-  ]
+  {
+   "name": "marketing-os",
+   "source": "./plugins/marketing-os",
+   "version": "1.2.0",
+   "displayName": "Marketing OS",
+   "description": "CMO orchestrator with specialists for SEO, content, email, social media, competitive intelligence, analytics, and brand monitoring.",
+   "keywords": [
+    "marketing",
+    "seo",
+    "content",
+    "email",
+    "social-media",
+    "solopreneur"
+   ],
+   "license": "MIT",
+   "repository": "https://github.com/Mindustries-io/mind-market"
+  },
+  {
+   "name": "po-os",
+   "source": "./plugins/po-os",
+   "version": "1.2.0",
+   "displayName": "Product Owner OS",
+   "description": "Lead PO orchestrator with specialists for regulatory-driven features, jurisdictional localization, and voice-of-customer discovery.",
+   "keywords": [
+    "product",
+    "backlog",
+    "roadmap",
+    "voice-of-customer",
+    "solopreneur"
+   ],
+   "license": "MIT",
+   "repository": "https://github.com/Mindustries-io/mind-market"
+  },
+  {
+   "name": "security-os",
+   "source": "./plugins/security-os",
+   "version": "1.1.0",
+   "displayName": "Security OS",
+   "description": "vCISO orchestrator with specialists for application security review, threat modeling, infrastructure hardening, vendor security, and security incident response.",
+   "keywords": [
+    "security",
+    "appsec",
+    "threat-modeling",
+    "hardening",
+    "solopreneur"
+   ],
+   "license": "MIT",
+   "repository": "https://github.com/Mindustries-io/mind-market"
+  },
+  {
+   "name": "finance-os",
+   "source": "./plugins/finance-os",
+   "version": "1.1.0",
+   "displayName": "Finance OS",
+   "description": "CFO orchestrator with specialists for bookkeeping, invoicing and collections, cash-flow forecasting, tax deadline planning, and pricing analysis.",
+   "keywords": [
+    "finance",
+    "bookkeeping",
+    "invoicing",
+    "cashflow",
+    "pricing",
+    "solopreneur"
+   ],
+   "license": "MIT",
+   "repository": "https://github.com/Mindustries-io/mind-market"
+  },
+  {
+   "name": "sales-os",
+   "source": "./plugins/sales-os",
+   "version": "1.1.0",
+   "displayName": "Sales OS",
+   "description": "Sales Director orchestrator with specialists for pipeline management, 1-to-1 outreach, proposal drafting, and CRM hygiene.",
+   "keywords": [
+    "sales",
+    "pipeline",
+    "outreach",
+    "proposals",
+    "crm",
+    "solopreneur"
+   ],
+   "license": "MIT",
+   "repository": "https://github.com/Mindustries-io/mind-market"
+  },
+  {
+   "name": "support-os",
+   "source": "./plugins/support-os",
+   "version": "1.1.0",
+   "displayName": "Support OS",
+   "description": "Support Lead orchestrator with specialists for ticket triage, response drafting, knowledge-base authoring, and support insights that feed product discovery.",
+   "keywords": [
+    "support",
+    "customer-service",
+    "helpdesk",
+    "knowledge-base",
+    "solopreneur"
+   ],
+   "license": "MIT",
+   "repository": "https://github.com/Mindustries-io/mind-market"
+  },
+  {
+   "name": "delivery-os",
+   "source": "./plugins/delivery-os",
+   "version": "1.0.0",
+   "displayName": "Delivery OS",
+   "description": "Delivery scorecard (CSAT, margin deviation, PoC-to-Production, expansion %, upsells) and Account Development Plans for services delivery leaders.",
+   "keywords": [
+    "delivery",
+    "customer-success",
+    "professional-services",
+    "account-management",
+    "scorecard",
+    "kpi"
+   ],
+   "license": "MIT",
+   "repository": "https://github.com/Mindustries-io/mind-market"
+  }
+ ]
 }

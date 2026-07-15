@@ -52,3 +52,8 @@ Initial release.
   - **legal-os** — General Counsel orchestrator with specialists for compliance, GDPR/data protection, contracts, legal research, regulatory intelligence, incident response, and vendor risk.
   - **po-os** — Lead PO orchestrator with specialists for regulatory-driven features, jurisdictional localization, and voice-of-customer discovery.
 - Skill-based delegation (orchestrator invoking specialist skills), per-plugin setup wizards writing to `~/.claude/plugins/data/<os>/config.json`, per-specialist reference libraries, and cross-OS memory namespaces (`mos:`, `los:`, `po:`).
+
+## 2.2.0 — 2026-07-15
+
+- New plugin: **delivery-os 1.0.0** — delivery-scorecard and adp-generator skills for
+  services delivery leaders (skills-only plugin, no orchestrator).
