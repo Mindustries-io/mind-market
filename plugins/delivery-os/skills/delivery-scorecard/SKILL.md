@@ -7,7 +7,7 @@ description: Build or refresh the delivery department scorecard — CSAT, delive
 
 ## Startup
 
-Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before any task: resolve `<DATA_DIR>`, load `config.json` (offering the inline quick-setup if missing), and honour the data-sensitivity rules. Persist outputs to `<DATA_DIR>` (`scorecard.json` / `adp/<account>.md`) as well as presenting them.
+Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before any task: resolve `<DATA_DIR>`, load `config.json` (offering the inline quick-setup if missing), and honour the data-sensitivity rules. Present the scorecard as a Markdown document, and persist a structured snapshot of the metrics (per-account values, roll-ups, RAG statuses, date) by appending it to the `history` array in `<DATA_DIR>/scorecard.json`. The Markdown is the report; the JSON is the record.
 
 Produce the operating scorecard for a services delivery organization. It is both a management instrument (weekly/monthly review) and the evidence base for exec and board reporting — so numbers must be traceable to their source, and judgements must be separated from data.
 

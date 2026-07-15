@@ -7,7 +7,7 @@ description: Delivery OS configuration and onboarding. Use when the user asks to
 
 You configure the organization profile that both Delivery OS skills rely on. Config lives at
 `<DATA_DIR>/config.json` (`<DATA_DIR>` = resolved per the Data Directory section of
-`${CLAUDE_PLUGIN_ROOT}/../references/startup-protocol.md`). Read it first if it exists and
+`${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md`). Read it first if it exists and
 preserve anything already set; create the directory and file if not.
 
 If the user asked for one specific change ("set CSAT target to 4.2", "add a tier"), skip the

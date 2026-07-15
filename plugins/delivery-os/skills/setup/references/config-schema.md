@@ -22,7 +22,7 @@
     "upsell_opportunities_per_account_per_quarter": 2
   },
   "rag_thresholds": {
-    "note": "Optional per-metric overrides; skills use sensible defaults otherwise"
+    "csat": { "green_min": 4.0, "amber_min": 3.5 }
   },
   "review_cadence": {
     "scorecard": "weekly",
@@ -33,10 +33,12 @@
     "enabled": true,
     "preferred": []
   },
-  "created_at": "YYYY-MM-DD",
-  "updated_at": "YYYY-MM-DD"
+  "created_at": "2026-07-15",
+  "updated_at": "2026-07-15"
 }
 ```
+
+`rag_thresholds` is optional: omit it entirely to use the skills' default thresholds; include only the metrics you want to override.
 
 Data files created alongside config.json:
 - `scorecard.json` — latest scorecard snapshot plus history array

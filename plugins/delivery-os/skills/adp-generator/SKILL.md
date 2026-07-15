@@ -7,7 +7,7 @@ description: Generate or update an Account Development Plan (ADP) for a client a
 
 ## Startup
 
-Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before any task: resolve `<DATA_DIR>`, load `config.json` (offering the inline quick-setup if missing), and honour the data-sensitivity rules. Persist outputs to `<DATA_DIR>` (`scorecard.json` / `adp/<account>.md`) as well as presenting them.
+Read `${CLAUDE_PLUGIN_ROOT}/references/startup-protocol.md` and follow it before any task: resolve `<DATA_DIR>`, load `config.json` (offering the inline quick-setup if missing), and honour the data-sensitivity rules. Persist each plan to `<DATA_DIR>/adp/<account-slug>.md` (creating or updating it) as well as presenting it.
 
 Create a living ADP for one client account. The ADP is the operating document an Account Delivery Manager (or the CDO personally) uses to convert delivery quality into expansion revenue. It is reviewed and refreshed at least monthly — so favour concrete, dated, actionable content over generic strategy prose.
 
