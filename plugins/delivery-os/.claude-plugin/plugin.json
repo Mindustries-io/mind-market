@@ -1,0 +1,11 @@
+{
+  "name": "delivery-os",
+  "description": "Delivery Operating System for services and consulting delivery leaders — a delivery scorecard (CSAT, delivery-margin deviation, PoC-to-Production conversion, expansion revenue %, upsells) as the department's operating instrument, and Account Development Plans (stakeholder mapping with Business/Personal/Trust Value scoring, expansion pipeline, next-best actions) per key account.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Mindustries",
+    "url": "https://github.com/Mindustries-io"
+  },
+  "homepage": "https://github.com/Mindustries-io/mind-market",
+  "license": "MIT"
+}
